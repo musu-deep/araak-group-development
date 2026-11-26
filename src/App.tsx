@@ -82,7 +82,6 @@ export function App() {
     [sceneIndex, goToSceneIndex, pendingGateAxis]
   );
 
-  // الانتقال المنزلق الرأسي بعجلة الفأرة والأسهم مع احترام التمرير الداخلي إن وجد
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (pendingGateAxis) return;
@@ -171,79 +170,95 @@ export function App() {
         return (
           <div
             key={axis.id}
-            className="rounded-3xl border border-white/15 bg-[#08191E]/75 backdrop-blur-2xl p-6 space-y-5 shadow-2xl"
+            className="rounded-3xl border border-white/15 bg-[#08191E]/75 backdrop-blur-2xl overflow-hidden flex flex-col justify-between shadow-2xl"
           >
-            <div className="flex flex-wrap items-start justify-between gap-3 border-b border-white/10 pb-4">
-              <div>
-                <span className="text-xs font-bold text-[#C99E4C]">محور {axis.code}</span>
-                <h3 className="text-2xl font-bold text-white mt-0.5">{axis.title}</h3>
-                <p className="text-xs sm:text-sm text-slate-300 mt-1">{axis.summary}</p>
+            <div className="p-6 space-y-5">
+              {/* بطاقة صورة عالية الدقة داخل حاوية المحور */}
+              <div className="relative h-44 w-full overflow-hidden rounded-2xl border border-white/10">
+                <img
+                  src={axis.imageUrl}
+                  alt={axis.imageAlt}
+                  className="h-full w-full object-cover object-center transition duration-700 hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#08191E] via-[#08191E]/35 to-transparent" />
+                <div className="absolute bottom-3 right-3 left-3 flex items-center justify-between gap-2">
+                  <span className="rounded-lg border border-[#C99E4C]/40 bg-[#06161A]/85 px-3 py-1 text-xs font-bold text-[#F3D89B] backdrop-blur-md">
+                    محور {axis.code} — {axis.title}
+                  </span>
+                </div>
               </div>
-              <button
-                type="button"
-                onClick={() =>
-                  requestAxisAccess(axis, () =>
-                    goToSceneId('routing', `${axis.title} (${axis.routingLabel})`)
-                  )
-                }
-                className="rounded-xl border border-[#C99E4C]/45 bg-[#C99E4C]/15 px-3.5 py-2 text-xs font-bold text-[#F3D89B] hover:bg-[#C99E4C] hover:text-[#06161A] transition"
-              >
-                تحويل للجهة
-              </button>
-            </div>
 
-            {isUnlocked ? (
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-                {axis.branches.map((branch) => (
-                  <div
-                    key={branch.id}
-                    className="rounded-2xl border border-white/10 bg-[#06161A]/85 p-4 space-y-2.5"
-                  >
-                    <div className="text-sm font-bold text-[#E8C882]">{branch.title}</div>
-                    <ul className="space-y-2">
-                      {branch.items.map((item) => (
-                        <li
-                          key={item.title}
-                          className="rounded-xl border border-white/5 bg-[#0B1C2C]/80 p-2.5"
-                        >
-                          <div className="flex items-center justify-between gap-1.5">
-                            <span className="text-xs font-semibold text-white">{item.title}</span>
-                            <button
-                              type="button"
-                              onClick={() => goToSceneId('routing', item.targetRouting)}
-                              className="text-[11px] text-[#C99E4C] hover:underline shrink-0"
-                            >
-                              تحويل
-                            </button>
-                          </div>
-                          <p className="text-[11px] text-slate-300/85 mt-1 leading-relaxed">
-                            {item.description}
-                          </p>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="rounded-2xl border border-dashed border-[#C99E4C]/40 bg-[#06161A]/80 p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div className="space-y-1">
-                  <div className="text-sm font-bold text-[#E8C882]">
-                    افتح المسارات التفصيلية لـ ({axis.title})
-                  </div>
-                  <p className="text-xs text-slate-300">
-                    سجّل الاسم والبريد الإلكتروني لمرة واحدة لاستعراض الدبلومات والدورات والخدمات والبرامج.
-                  </p>
+              <div className="flex flex-wrap items-start justify-between gap-3 border-b border-white/10 pb-4">
+                <div>
+                  <h3 className="text-2xl font-bold text-white">{axis.title}</h3>
+                  <p className="text-xs sm:text-sm text-slate-300 mt-1">{axis.summary}</p>
                 </div>
                 <button
                   type="button"
-                  onClick={() => requestAxisAccess(axis)}
-                  className="rounded-xl bg-[#C99E4C] px-5 py-2.5 text-xs font-bold text-[#06161A] hover:bg-[#dcaf59] shrink-0"
+                  onClick={() =>
+                    requestAxisAccess(axis, () =>
+                      goToSceneId('routing', `${axis.title} (${axis.routingLabel})`)
+                    )
+                  }
+                  className="rounded-xl border border-[#C99E4C]/45 bg-[#C99E4C]/15 px-3.5 py-2 text-xs font-bold text-[#F3D89B] hover:bg-[#C99E4C] hover:text-[#06161A] transition"
                 >
-                  دخول بالاسم والإيميل
+                  تحويل للجهة
                 </button>
               </div>
-            )}
+
+              {isUnlocked ? (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                  {axis.branches.map((branch) => (
+                    <div
+                      key={branch.id}
+                      className="rounded-2xl border border-white/10 bg-[#06161A]/85 p-4 space-y-2.5"
+                    >
+                      <div className="text-sm font-bold text-[#E8C882]">{branch.title}</div>
+                      <ul className="space-y-2">
+                        {branch.items.map((item) => (
+                          <li
+                            key={item.title}
+                            className="rounded-xl border border-white/5 bg-[#0B1C2C]/80 p-2.5"
+                          >
+                            <div className="flex items-center justify-between gap-1.5">
+                              <span className="text-xs font-semibold text-white">{item.title}</span>
+                              <button
+                                type="button"
+                                onClick={() => goToSceneId('routing', item.targetRouting)}
+                                className="text-[11px] text-[#C99E4C] hover:underline shrink-0"
+                              >
+                                تحويل
+                              </button>
+                            </div>
+                            <p className="text-[11px] text-slate-300/85 mt-1 leading-relaxed">
+                              {item.description}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="rounded-2xl border border-dashed border-[#C99E4C]/40 bg-[#06161A]/80 p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div className="space-y-1">
+                    <div className="text-sm font-bold text-[#E8C882]">
+                      افتح المسارات التفصيلية لـ ({axis.title})
+                    </div>
+                    <p className="text-xs text-slate-300">
+                      سجّل الاسم والبريد الإلكتروني لمرة واحدة لاستعراض التفاصيل الكاملة ومسارات التحويل.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => requestAxisAccess(axis)}
+                    className="rounded-xl bg-[#C99E4C] px-5 py-2.5 text-xs font-bold text-[#06161A] hover:bg-[#dcaf59] shrink-0"
+                  >
+                    دخول بالاسم والإيميل
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         );
       })}
@@ -280,7 +295,6 @@ export function App() {
         onQuickRouting={() => goToSceneId('routing', 'تحويل عام — مجموعة أراك للتنمية')}
       />
 
-      {/* مؤشر المشاهد الجانبي للتنقل المنزلق */}
       <aside
         aria-label="التنقل بين المشاهد"
         className="fixed left-5 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-[#06161A]/55 backdrop-blur-xl py-4 px-2.5"
@@ -305,7 +319,6 @@ export function App() {
         })}
       </aside>
 
-      {/* حاوية الشرائح المنزلقة رأسياً من الأسفل إلى الأعلى والعكس */}
       <div
         className="h-full w-full transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
         style={{ transform: `translateY(-${sceneIndex * 100}vh)` }}
@@ -463,7 +476,6 @@ export function App() {
                 </button>
               </div>
 
-              {/* شريط متحرك من اليسار إلى اليمين ببيانات شركات المجموعة */}
               <div
                 dir="ltr"
                 className="w-full overflow-hidden rounded-2xl border border-[#C99E4C]/30 bg-[#091B22]/75 backdrop-blur-xl py-2.5"
@@ -489,7 +501,6 @@ export function App() {
                 </div>
               </div>
 
-              {/* معرض تنفيذي: بطاقة زجاجية كبرى للشركة المختارة + شبكة بطاقات الشركات العشر */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
                 <div className="lg:col-span-5 rounded-3xl border border-[#C99E4C]/35 bg-[#091B22]/85 backdrop-blur-2xl overflow-hidden flex flex-col justify-between shadow-2xl">
                   <div>
@@ -616,7 +627,6 @@ export function App() {
         </section>
       </div>
 
-      {/* شريط تحكم منزلق سفلي ثابت */}
       <footer className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-7xl rounded-2xl border border-white/10 bg-[#06161A]/70 backdrop-blur-xl px-5 py-2.5 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <button

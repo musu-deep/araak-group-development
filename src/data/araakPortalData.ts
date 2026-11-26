@@ -19,6 +19,8 @@ export interface StrategicAxis {
   routingLabel: string;
   contactEmail: string;
   requiresGate: boolean;
+  imageUrl: string;
+  imageAlt: string;
   branches: PillarBranch[];
 }
 
@@ -92,6 +94,8 @@ export const DEVELOPMENTAL_AXES: StrategicAxis[] = [
     routingLabel: 'قسم القبول والتسجيل بالأكاديمية',
     contactEmail: 'academy@araak.org',
     requiresGate: true,
+    imageUrl: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=90',
+    imageAlt: 'بيئة التدريب والتأهيل في أكاديمية أراك الإلكترونية',
     branches: [
       {
         id: 'diplomas',
@@ -135,6 +139,8 @@ export const DEVELOPMENTAL_AXES: StrategicAxis[] = [
     routingLabel: 'مكتب الخدمات الاستشارية والاعتمادات',
     contactEmail: 'services@araak.org',
     requiresGate: true,
+    imageUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=90',
+    imageAlt: 'الاستشارات الاستراتيجية وبناء أنظمة الجودة والتطوير المؤسسي',
     branches: [
       {
         id: 'consulting',
@@ -177,6 +183,8 @@ export const INITIATIVES_AND_PUBLICATIONS: StrategicAxis[] = [
     routingLabel: 'إدارة المشاريع والمبادرات التنموية',
     contactEmail: 'initiatives@araak.org',
     requiresGate: true,
+    imageUrl: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=90',
+    imageAlt: 'المشاريع القيادية والتأهيلية والمبادرات المجتمعية في مجموعة أراك',
     branches: [
       {
         id: 'leadership-programs',
@@ -217,6 +225,8 @@ export const INITIATIVES_AND_PUBLICATIONS: StrategicAxis[] = [
     routingLabel: 'مركز الإصدارات والدراسات',
     contactEmail: 'publications@araak.org',
     requiresGate: false,
+    imageUrl: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=90',
+    imageAlt: 'الإصدارات التنموية والنشرات الدورية والمقالات العلمية',
     branches: [
       {
         id: 'publications-list',
@@ -274,14 +284,14 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     routingKey: 'أراك التجارية — الأنشطة التجارية والتوريد',
   },
   {
-    id: 'araak-food',
+    id: 'araak-development',
     code: '05',
-    name: 'أراك الغذائية',
-    sector: 'التجارة والإمداد',
-    headline: 'القطاع الغذائي وسلاسل الإمداد',
-    scope: 'تطوير المنتجات الغذائية وإدارة سلاسل الإمداد والتوزيع الغذائي.',
-    imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1400&q=85',
-    routingKey: 'أراك الغذائية — القطاع الغذائي والإمداد',
+    name: 'أراك التنمية',
+    sector: 'التدريب والأكاديمية',
+    headline: 'الاستشارات وتطوير الأعمال والتدريب والحلول التعليمية',
+    scope: 'تقديم الاستشارات المتخصصة، تطوير الأعمال، التدريب وبناء القدرات، والحلول التعليمية المبتكرة.',
+    imageUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=85',
+    routingKey: 'أراك التنمية — الاستشارات وتطوير الأعمال والتدريب والحلول التعليمية',
   },
   {
     id: 'araak-industrial',
