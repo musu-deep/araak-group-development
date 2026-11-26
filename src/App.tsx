@@ -324,7 +324,7 @@ export function App() {
         style={{ transform: `translateY(-${sceneIndex * 100}vh)` }}
       >
         {/* المشهد 1: الهوية السيادية */}
-        <section className="relative h-screen w-screen overflow-hidden flex items-end">
+        <section className="relative h-screen w-screen overflow-hidden flex items-center">
           <img
             src={SCENE_META[0].bgImage}
             alt={ARAAK_IDENTITY.groupName}
@@ -340,10 +340,10 @@ export function App() {
 
           <div
             ref={(el) => (sceneScrollRefs.current[0] = el)}
-            className="relative z-10 h-full w-full overflow-y-auto flex items-end"
+            className="relative z-10 h-full w-full overflow-y-auto flex items-center"
           >
-            <div className="mx-auto w-full max-w-7xl px-6 pt-28 pb-20">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
+            <div className="mx-auto w-full max-w-7xl px-6 py-24 my-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                 <div className="lg:col-span-8 space-y-6">
                   <div className="inline-flex items-center gap-3 rounded-full border border-[#C99E4C]/40 bg-[#0B1C2C]/80 px-4 py-1.5 text-xs sm:text-sm text-[#E8C882] backdrop-blur-md">
                     <span>{SCENE_META[0].eyebrow}</span>
@@ -667,3 +667,4 @@ export function App() {
 }
 
 export default App;
+
