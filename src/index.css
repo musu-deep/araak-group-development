@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy-900: #0A1628;
+  --gold-400: #C99E4C;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Tajawal', system-ui, sans-serif;
+  background-color: #0A1628;
+  color: #F3EEE4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0A1628;
+}
+::-webkit-scrollbar-thumb {
+  background: #C99E4C;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B88635;
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #DDB87A 0%, #C99E4C 40%, #B88635 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass {
+    background: rgba(15, 31, 56, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(201, 158, 76, 0.15);
+  }
+
+  .glass-gold {
+    background: rgba(201, 158, 76, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(201, 158, 76, 0.2);
+  }
+
+  .hero-grid-bg {
+    background-image:
+      linear-gradient(rgba(201, 158, 76, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201, 158, 76, 0.07) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .gold-line {
+    background: linear-gradient(90deg, transparent, #C99E4C, transparent);
+  }
+
+  .shimmer-gold {
+    background: linear-gradient(
+      90deg,
+      #C99E4C 0%,
+      #DDB87A 25%,
+      #F5EAD3 50%,
+      #DDB87A 75%,
+      #C99E4C 100%
+    );
+    background-size: 200% auto;
+  }
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+  }
+}
