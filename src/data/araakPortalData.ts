@@ -35,6 +35,13 @@ export interface AraakCompany {
   routingKey: string;
 }
 
+export interface AraakNewsHighlight {
+  id: string;
+  title: string;
+  tag: string;
+  summary: string;
+}
+
 export type SceneId = 'sovereign' | 'developmental' | 'investment' | 'initiatives' | 'routing';
 
 export const SCENE_META: {
@@ -82,15 +89,40 @@ export const ARAAK_IDENTITY = {
   reachLabel: 'انتشار دولي وأثر ممتد',
   values: ['الابتكار', 'الاحترافية', 'التعاون'],
   aboutSummary:
-    'مجموعة تنموية واستثمارية متكاملة تجمع بين بناء القدرات البشرية والمؤسسية، وتطوير المشاريع، وإدارة منظومة شركات تشغيلية وصناعية وتجارية متخصصة.',
+    'منظومة تنموية واستثمارية تجمع بين الأصالة والمعاصرة عبر فرق مؤهلة وبرامج مبتكرة علمياً وعملياً لتنمية العنصر البشري وبناء مجتمع حضاري وإدارة شركات تشغيلية وصناعية وتجارية.',
+  address: 'جدة - حي الروضة',
+  phoneMain: '00966126440098',
+  phoneSms: '00966598175754',
+  email: 'info@araak.org',
 };
+
+export const ARAAK_NEWS_HIGHLIGHTS: AraakNewsHighlight[] = [
+  {
+    id: 'chair-bangladesh',
+    title: 'إطلاق كرسي أراك للتنمية بالجامعة الإسلامية العالمية',
+    tag: 'شراكة أكاديمية دولية',
+    summary: 'تعزيز البحث العلمي والتنمية المستدامة وبناء القدرات المؤسسية والأكاديمية.',
+  },
+  {
+    id: 'mou-universities',
+    title: 'مذكرات تفاهم ومؤتمرات دولية للتعليم المعاصر',
+    tag: 'تعاون مؤسسي',
+    summary: 'توسيع الأطر التعليمية والتنموية وتبادل الخبرات مع الجامعات والمؤسسات الدولية.',
+  },
+  {
+    id: 'strategic-workshops',
+    title: 'ورش عمل البناء الاستراتيجي والتميز المؤسسي',
+    tag: 'تمكين القيادات',
+    summary: 'تأهيل الكوادر والمنشآت على التخطيط الاستراتيجي والحوكمة وجودة الأداء.',
+  },
+];
 
 export const DEVELOPMENTAL_AXES: StrategicAxis[] = [
   {
     id: 'academy',
     code: '01',
     title: 'أكاديمية أراك الإلكترونية',
-    summary: 'منظومة تعليمية وتدريبية متكاملة للدبلومات والدورات التخصصية والبرامج التنموية.',
+    summary: 'منصة إلكترونية تقدم خدمات أراك بطريقة تقنية وسهلة الاستخدام للدبلومات والدورات والبرامج التنموية.',
     routingLabel: 'قسم القبول والتسجيل بالأكاديمية',
     contactEmail: 'academy@araak.org',
     requiresGate: true,
@@ -249,9 +281,9 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     name: 'أكاديمية أراك',
     sector: 'التدريب والأكاديمية',
     headline: 'الذراع التدريبي والأكاديمي للمجموعة',
-    scope: 'تطوير وتنفيذ الدبلومات التدريبية، الحقائب التخصصية، وبرامج التأهيل القيادي والمهني.',
+    scope: 'منصة إلكترونية تقدم خدمات أراك بطريقة تقنية وسهلة الاستخدام للدبلومات والدورات والبرامج التدريبية.',
     imageUrl: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1400&q=85',
-    routingKey: 'أكاديمية أراك — الذراع التدريبي والأكاديمي',
+    routingKey: 'أكاديمية أراك',
   },
   {
     id: 'araak-national',
@@ -261,7 +293,7 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     headline: 'التطوير العقاري والمشاريع الوطنية',
     scope: 'قيادة المشاريع العمرانية والتطويرية وبناء الشراكات الاستثمارية ذات الأثر المستدام.',
     imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1400&q=85',
-    routingKey: 'أراك الوطنية — التطوير والمشاريع الوطنية',
+    routingKey: 'أراك الوطنية',
   },
   {
     id: 'araak-projects',
@@ -271,17 +303,17 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     headline: 'إدارة وتنفيذ المشاريع الهندسية والإنشائية',
     scope: 'التخطيط الهندسي، إدارة المقاولات، وتنفيذ المشاريع وفق أعلى معايير الجودة والانضباط.',
     imageUrl: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=85',
-    routingKey: 'أراك المشاريع — إدارة وتنفيذ المشاريع',
+    routingKey: 'أراك المشاريع',
   },
   {
     id: 'araak-commercial',
     code: '04',
     name: 'أراك التجارية',
     sector: 'التجارة والإمداد',
-    headline: 'الأنشطة التجارية والتوريد المؤسسي',
-    scope: 'إدارة العقود التجارية وتوفير المستلزمات والحلول التجارية للقطاعات المختلفة.',
+    headline: 'توريد مواد البناء والتعاقد من الباطن المتخصص',
+    scope: 'توريد مواد بناء عالية الجودة وتنفيذ خدمات التعاقد من الباطن المتخصصة للمقاولين وتجار الجملة والتجزئة وأصحاب المشاريع.',
     imageUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1400&q=85',
-    routingKey: 'أراك التجارية — الأنشطة التجارية والتوريد',
+    routingKey: 'أراك التجارية',
   },
   {
     id: 'araak-development',
@@ -289,9 +321,9 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     name: 'أراك التنمية',
     sector: 'التدريب والأكاديمية',
     headline: 'الاستشارات وتطوير الأعمال والتدريب والحلول التعليمية',
-    scope: 'تقديم الاستشارات المتخصصة، تطوير الأعمال، التدريب وبناء القدرات، والحلول التعليمية المبتكرة.',
+    scope: 'تنمية العنصر البشري وتعزيز قدراته عبر فرق مؤهلة وبرامج مبتكرة علمياً وعملياً لبناء مجتمع حضاري، مع الاستشارات وتطوير الأعمال والحلول التعليمية.',
     imageUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=85',
-    routingKey: 'أراك التنمية — الاستشارات وتطوير الأعمال والتدريب والحلول التعليمية',
+    routingKey: 'أراك التنمية',
   },
   {
     id: 'araak-industrial',
@@ -301,27 +333,27 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     headline: 'التصنيع والإنتاج الصناعي المتكامل',
     scope: 'تطوير خطوط الإنتاج الصناعي ودعم المحتوى المحلي في الصناعات التحويلية.',
     imageUrl: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1400&q=85',
-    routingKey: 'أراك الصناعية — التصنيع والإنتاج الصناعي',
+    routingKey: 'أراك الصناعية',
   },
   {
     id: 'araak-iron',
     code: '07',
     name: 'أراك الحديد',
     sector: 'الصناعة والحديد',
-    headline: 'الحديد والصلب والمواد الإنشائية',
-    scope: 'توريد وتجهيز حلول الحديد الإنشائي والصناعي للمشاريع الكبرى.',
+    headline: 'الصلب المجلفن والمدرفل وقواطع الحوائط والأسقف الفولاذية',
+    scope: 'تصنيع الصفائح عالية الجودة من الصلب المجلفن ولفائف الصلب المدرفلة على الساخن والبارد، وقواطع الحوائط الجافة وإكسسوارات الأسقف الفولاذية.',
     imageUrl: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1400&q=85',
-    routingKey: 'أراك الحديد — الحديد والمواد الإنشائية',
+    routingKey: 'أراك الحديد',
   },
   {
     id: 'araak-stores',
     code: '08',
     name: 'أراك ستورز',
     sector: 'اللوجستيك والتجزئة',
-    headline: 'التجارة الإلكترونية والمنصات الرقمية',
-    scope: 'بناء وتشغيل المتاجر الرقمية وتجربة التسوق المتكاملة للعملاء.',
+    headline: 'المنتجات المنزلية ومستلزمات الديكور',
+    scope: 'متجر حديث يضم أحدث المنتجات المنزلية ومستلزمات الديكور بتجربة تسوق متكاملة.',
     imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1400&q=85',
-    routingKey: 'أراك ستورز — التجارة الإلكترونية والمتاجر',
+    routingKey: 'أراك ستورز',
   },
   {
     id: 'araak-logistics',
@@ -331,7 +363,7 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     headline: 'الخدمات اللوجستية والنقل والتخزين',
     scope: 'حلول النقل، المستودعات، وإدارة حركة البضائع وسلاسل التوريد.',
     imageUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=85',
-    routingKey: 'أراك لوجستيك — الخدمات اللوجستية والنقل',
+    routingKey: 'أراك لوجستيك',
   },
   {
     id: 'araak-home',
@@ -341,7 +373,6 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     headline: 'الحلول السكنية والتأثيث المتكامل',
     scope: 'تجهيز وتأثيث الوحدات السكنية وتقديم حلول المعيشة العصرية.',
     imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85',
-    routingKey: 'أراك هوم — الحلول السكنية والتأثيث',
+    routingKey: 'أراك هوم',
   },
 ];
-

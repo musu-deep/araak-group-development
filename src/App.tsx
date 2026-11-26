@@ -4,6 +4,7 @@ import { FloatingNavbar } from './components/FloatingNavbar';
 import { SmartRoutingSection } from './components/SmartRoutingSection';
 import {
   ARAAK_COMPANIES,
+  ARAAK_NEWS_HIGHLIGHTS,
   ARAAK_IDENTITY,
   DEVELOPMENTAL_AXES,
   INITIATIVES_AND_PUBLICATIONS,
@@ -601,6 +602,25 @@ export function App() {
               </div>
 
               {renderAxisGrid(INITIATIVES_AND_PUBLICATIONS)}
+
+              <div className="rounded-3xl border border-white/15 bg-[#08191E]/75 backdrop-blur-2xl p-6 space-y-4">
+                <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                  <h3 className="text-lg font-extrabold text-white">أبرز الأخبار والشراكات التنموية</h3>
+                  <span className="text-xs font-semibold text-[#C99E4C]">araak.org</span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {ARAAK_NEWS_HIGHLIGHTS.map((news) => (
+                    <div
+                      key={news.id}
+                      className="rounded-2xl border border-white/10 bg-[#06161A]/85 p-4 space-y-1.5"
+                    >
+                      <div className="text-[11px] font-bold text-[#C99E4C]">{news.tag}</div>
+                      <div className="text-sm font-bold text-white leading-snug">{news.title}</div>
+                      <p className="text-xs text-slate-300 leading-relaxed">{news.summary}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -642,6 +662,7 @@ export function App() {
 }
 
 export default App;
+
 
 
 

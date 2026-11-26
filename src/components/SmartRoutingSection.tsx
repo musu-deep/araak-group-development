@@ -227,9 +227,9 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
 
             <div className="space-y-1.5 text-sm text-slate-200 leading-relaxed pt-1">
               <p className="font-bold text-white">{ARAAK_IDENTITY.groupName} — {ARAAK_IDENTITY.tagline}</p>
-              <p className="text-slate-300">جدة - حي الروضة</p>
+              <p className="text-slate-300">{ARAAK_IDENTITY.address} • {ARAAK_IDENTITY.email}</p>
               <p className="text-slate-200">
-                تلفون: <span dir="ltr" className="font-bold text-[#E8C882]">+966 12 000 0000</span>
+                تلفون: <span dir="ltr" className="font-bold text-[#E8C882]">{ARAAK_IDENTITY.phoneMain}</span> • رسالة: <span dir="ltr" className="font-semibold text-slate-200">{ARAAK_IDENTITY.phoneSms}</span>
               </p>
             </div>
 
@@ -381,3 +381,4 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
     </div>
   );
 };
+
