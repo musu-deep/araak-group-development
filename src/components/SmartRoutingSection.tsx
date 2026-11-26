@@ -60,14 +60,21 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
   const activeOption =
     routingOptions.find((opt) => opt.label === selectedTarget) || routingOptions[0];
 
+  const targetLabel = activeOption?.label || selectedTarget;
+  const targetEmail = activeOption?.email || 'info@araak.org';
+  const orgDisplay = organizationName.trim() || 'غير محدد';
+  const requesterDisplay = contactName.trim() || 'غير محدد';
+  const contactDisplay = contactInfo.trim() || 'غير محدد';
+  const detailsDisplay = details.trim() || 'طلب تواصل مباشر مع الجهة المختصة';
+
   const builtSummary = [
     `الرقم المرجعي: ${referenceCode}`,
-    `جهة التواصل: ${activeOption?.label || selectedTarget}`,
+    `جهة التواصل: ${targetLabel}`,
     `تصنيف مقدم الطلب: ${requesterType}`,
-    `الجهة / المؤسسة الطالبة: ${organizationName || 'غير محدد'}`,
-    `مقدم الطلب: ${contactName || 'غير محدد'}`,
-    `وسيلة التواصل: ${contactInfo || 'غير محدد'}`,
-    `تفاصيل الرسالة: ${details || 'طلب تواصل مباشر مع الجهة المختصة'}`,
+    `الجهة / المؤسسة الطالبة: ${orgDisplay}`,
+    `مقدم الطلب: ${requesterDisplay}`,
+    `وسيلة التواصل: ${contactDisplay}`,
+    `ملخص الرسالة: ${detailsDisplay}`,
   ].join('\n');
 
   const handleCopySummary = async () => {
@@ -76,37 +83,88 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const mailtoHref = `mailto:${encodeURIComponent(
-    activeOption?.email || 'info@araak.org'
-  )}?subject=${encodeURIComponent(
-    `[${referenceCode}] التواصل مع أراك — ${activeOption?.label || selectedTarget}`
+  const mailtoHref = `mailto:${encodeURIComponent(targetEmail)}?subject=${encodeURIComponent(
+    `[${referenceCode}] التواصل مع أراك — ${targetLabel}`
   )}&body=${encodeURIComponent(builtSummary)}`;
 
   return (
-    <div dir="rtl" className="mx-auto w-full max-w-6xl px-6 pt-28 pb-20">
+    <div dir="rtl" className="mx-auto w-full max-w-6xl px-6 pt-28 pb-14 font-arabic">
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
           <span className="text-xs font-bold tracking-wider text-[#C99E4C]">التواصل المباشر</span>
-          <h2 className="mt-1 text-3xl md:text-4xl font-bold text-white">التواصل مع أراك</h2>
+          <h2 className="mt-1 text-3xl md:text-4xl font-extrabold text-white">التواصل مع أراك</h2>
           <p className="mt-1.5 text-sm text-slate-300">
             اختر جهة التواصل من المسارات التنموية أو شركات المجموعة لإرسال رسالتك مباشرة برقم مرجعي فوري.
           </p>
         </div>
-        <span className="rounded-xl border border-[#C99E4C]/35 bg-[#0B1C2C]/85 px-4 py-2 text-xs font-mono text-[#E8C882] backdrop-blur-md">
-          {referenceCode}
+        <span className="rounded-xl border border-[#C99E4C]/35 bg-[#0B1C2C]/85 px-4 py-2 text-xs font-semibold text-[#E8C882] backdrop-blur-md">
+          الرقم المرجعي: {referenceCode}
         </span>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 rounded-3xl border border-white/15 bg-[#091B22]/80 backdrop-blur-2xl p-6 md:p-8 shadow-2xl">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 rounded-3xl border border-white/15 bg-[#091B22]/85 backdrop-blur-2xl p-6 md:p-8 shadow-2xl">
+        {/* بطاقات فرعية نظيفة ومرتبة لمعاينة بطاقة التواصل */}
+        <div className="lg:col-span-5 rounded-2xl border border-white/10 bg-[#06161A]/90 p-5 flex flex-col justify-between gap-4">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <span className="text-xs font-bold text-[#C99E4C]">بطاقة التواصل المباشر</span>
+              <span className="rounded-lg bg-[#C99E4C]/15 border border-[#C99E4C]/30 px-2.5 py-1 text-[11px] font-semibold text-[#F3D89B]">
+                {referenceCode}
+              </span>
+            </div>
+
+            <div className="rounded-xl border border-white/10 bg-[#0B1C2C]/75 p-3">
+              <div className="text-[11px] text-[#C99E4C] font-semibold">جهة التواصل المختارة</div>
+              <div className="mt-1 text-xs sm:text-sm font-bold text-white leading-relaxed">
+                {targetLabel}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div className="rounded-xl border border-white/10 bg-[#0B1C2C]/65 p-3">
+                <div className="text-[11px] text-slate-400">تصنيف مقدم الطلب</div>
+                <div className="mt-1 text-xs font-semibold text-[#E8C882]">{requesterType}</div>
+              </div>
+              <div className="rounded-xl border border-white/10 bg-[#0B1C2C]/65 p-3">
+                <div className="text-[11px] text-slate-400">الجهة / المنشأة</div>
+                <div className="mt-1 text-xs font-semibold text-white truncate">{orgDisplay}</div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div className="rounded-xl border border-white/10 bg-[#0B1C2C]/65 p-3">
+                <div className="text-[11px] text-slate-400">اسم المسؤول</div>
+                <div className="mt-1 text-xs font-semibold text-white truncate">{requesterDisplay}</div>
+              </div>
+              <div className="rounded-xl border border-white/10 bg-[#0B1C2C]/65 p-3">
+                <div className="text-[11px] text-slate-400">وسيلة التواصل</div>
+                <div className="mt-1 text-xs font-semibold text-white truncate">{contactDisplay}</div>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-white/10 bg-[#0B1C2C]/65 p-3">
+              <div className="text-[11px] text-slate-400">ملخص الرسالة</div>
+              <p className="mt-1 text-xs text-slate-200 leading-relaxed line-clamp-3">
+                {detailsDisplay}
+              </p>
+            </div>
+          </div>
+
+          <div className="border-t border-white/10 pt-3 text-[11px] text-slate-400">
+            تواصل مباشر مع الجهة المختصة في مجموعة أراك للتنمية دون تخزين بيانات في قواعد بيانات خارجية.
+          </div>
+        </div>
+
+        {/* نموذج إدخال بيانات التواصل */}
         <div className="lg:col-span-7 space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-200 mb-1.5">
+            <label className="block text-xs font-bold text-slate-200 mb-1.5">
               اختر جهة التواصل
             </label>
             <select
               value={selectedTarget}
               onChange={(e) => onChangeTarget(e.target.value)}
-              className="w-full rounded-xl border border-white/15 bg-[#06161A]/90 px-4 py-3 text-sm text-white focus:border-[#C99E4C] focus:outline-none"
+              className="w-full rounded-xl border border-white/15 bg-[#06161A]/90 px-4 py-3 text-sm font-medium text-white focus:border-[#C99E4C] focus:outline-none"
             >
               {routingOptions.map((opt) => (
                 <option key={opt.label} value={opt.label}>
@@ -118,11 +176,11 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-200 mb-1.5">تصنيف مقدم الطلب</label>
+              <label className="block text-xs font-bold text-slate-200 mb-1.5">تصنيف مقدم الطلب</label>
               <select
                 value={requesterType}
                 onChange={(e) => setRequesterType(e.target.value as (typeof REQUESTER_TYPES)[number])}
-                className="w-full rounded-xl border border-white/15 bg-[#06161A]/90 px-4 py-3 text-sm text-white focus:border-[#C99E4C] focus:outline-none"
+                className="w-full rounded-xl border border-white/15 bg-[#06161A]/90 px-4 py-3 text-sm font-medium text-white focus:border-[#C99E4C] focus:outline-none"
               >
                 {REQUESTER_TYPES.map((type) => (
                   <option key={type} value={type}>
@@ -132,7 +190,7 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
               </select>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-200 mb-1.5">اسم الجهة أو المنشأة</label>
+              <label className="block text-xs font-bold text-slate-200 mb-1.5">اسم الجهة أو المنشأة</label>
               <input
                 type="text"
                 value={organizationName}
@@ -145,7 +203,7 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-200 mb-1.5">اسم المسؤول / مقدم الطلب</label>
+              <label className="block text-xs font-bold text-slate-200 mb-1.5">اسم المسؤول / مقدم الطلب</label>
               <input
                 type="text"
                 value={contactName}
@@ -155,7 +213,7 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-200 mb-1.5">البريد الإلكتروني أو رقم التواصل</label>
+              <label className="block text-xs font-bold text-slate-200 mb-1.5">البريد الإلكتروني أو رقم التواصل</label>
               <input
                 type="text"
                 value={contactInfo}
@@ -167,7 +225,7 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-200 mb-1.5">ملخص الرسالة أو الاستفسار</label>
+            <label className="block text-xs font-bold text-slate-200 mb-1.5">ملخص الرسالة أو الاستفسار</label>
             <textarea
               rows={3}
               value={details}
@@ -182,7 +240,7 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
               href={mailtoHref}
               className="rounded-xl bg-[#C99E4C] px-6 py-3 text-xs sm:text-sm font-bold text-[#06161A] transition hover:bg-[#dcaf59]"
             >
-              إرسال الرسالة ({activeOption?.email})
+              إرسال الرسالة ({targetEmail})
             </a>
             <button
               type="button"
@@ -191,18 +249,6 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
             >
               {copied ? 'تم نسخ بطاقة التواصل' : 'نسخ بطاقة التواصل'}
             </button>
-          </div>
-        </div>
-
-        <div className="lg:col-span-5 rounded-2xl border border-white/10 bg-[#06161A]/90 p-5 flex flex-col justify-between">
-          <div>
-            <div className="text-xs font-bold text-[#C99E4C] mb-2">معاينة بطاقة التواصل المباشر</div>
-            <pre className="whitespace-pre-wrap font-sans text-xs sm:text-sm leading-relaxed text-slate-200">
-              {builtSummary}
-            </pre>
-          </div>
-          <div className="mt-5 border-t border-white/10 pt-3 text-[11px] text-slate-400">
-            تواصل مباشر مع الجهة المختصة في مجموعة أراك للتنمية دون تخزين بيانات في قواعد بيانات خارجية.
           </div>
         </div>
       </div>

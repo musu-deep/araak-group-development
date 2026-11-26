@@ -270,7 +270,7 @@ export function App() {
       dir="rtl"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
-      className="relative h-screen w-screen overflow-hidden bg-[#06161A] text-white font-sans select-none"
+      className="relative h-screen w-screen overflow-hidden bg-[#06161A] text-white select-none" style={{ fontFamily: `"Cairo", "Noto Sans Arabic", "IBM Plex Arabic", sans-serif` }}
     >
       <style>{`
         @keyframes araakLtrMarquee {
@@ -627,31 +627,6 @@ export function App() {
         </section>
       </div>
 
-      <footer className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-7xl rounded-2xl border border-white/10 bg-[#06161A]/70 backdrop-blur-xl px-5 py-2.5 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            disabled={sceneIndex === 0}
-            onClick={() => triggerStep(-1)}
-            className="rounded-xl border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-white disabled:opacity-35 hover:border-[#C99E4C]"
-          >
-            ↑ المشهد السابق
-          </button>
-          <button
-            type="button"
-            disabled={sceneIndex === SCENE_META.length - 1}
-            onClick={() => triggerStep(1)}
-            className="rounded-xl bg-[#C99E4C] px-3.5 py-1.5 text-xs font-bold text-[#06161A] disabled:opacity-35 hover:bg-[#dcaf59]"
-          >
-            ↓ المشهد التالي
-          </button>
-        </div>
-
-        <div className="text-[11px] sm:text-xs text-slate-300">
-          {SCENE_META[sceneIndex].eyebrow} — {SCENE_META[sceneIndex].shortTitle}
-        </div>
-      </footer>
-
       <AccessGateModal
         isOpen={Boolean(pendingGateAxis)}
         axisTitle={pendingGateAxis?.title || ''}
@@ -667,5 +642,6 @@ export function App() {
 }
 
 export default App;
+
 
 
