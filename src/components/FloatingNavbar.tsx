@@ -91,3 +91,4 @@ export const FloatingNavbar: React.FC<FloatingNavbarProps> = ({
     </header>
   );
 };
+

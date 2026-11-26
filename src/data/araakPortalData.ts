@@ -69,8 +69,8 @@ export const SCENE_META: {
   },
   {
     id: 'routing',
-    shortTitle: 'بوابة التحويل',
-    eyebrow: '05 / التوجيه للجهات المختصة',
+    shortTitle: 'التواصل مع أراك',
+    eyebrow: '05 / التواصل المباشر مع الجهات',
     bgImage: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=2400&q=90',
   },
 ];
@@ -344,3 +344,4 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     routingKey: 'أراك هوم — الحلول السكنية والتأثيث',
   },
 ];
+

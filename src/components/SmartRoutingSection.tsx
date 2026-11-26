@@ -62,12 +62,12 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
 
   const builtSummary = [
     `الرقم المرجعي: ${referenceCode}`,
-    `الجهة المختصة: ${activeOption?.label || selectedTarget}`,
+    `جهة التواصل: ${activeOption?.label || selectedTarget}`,
     `تصنيف مقدم الطلب: ${requesterType}`,
     `الجهة / المؤسسة الطالبة: ${organizationName || 'غير محدد'}`,
     `مقدم الطلب: ${contactName || 'غير محدد'}`,
     `وسيلة التواصل: ${contactInfo || 'غير محدد'}`,
-    `تفاصيل الطلب: ${details || 'طلب تواصل وتحويل إلى الجهة المختصة'}`,
+    `تفاصيل الرسالة: ${details || 'طلب تواصل مباشر مع الجهة المختصة'}`,
   ].join('\n');
 
   const handleCopySummary = async () => {
@@ -79,17 +79,17 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
   const mailtoHref = `mailto:${encodeURIComponent(
     activeOption?.email || 'info@araak.org'
   )}?subject=${encodeURIComponent(
-    `[${referenceCode}] طلب تحويل — ${activeOption?.label || selectedTarget}`
+    `[${referenceCode}] التواصل مع أراك — ${activeOption?.label || selectedTarget}`
   )}&body=${encodeURIComponent(builtSummary)}`;
 
   return (
     <div dir="rtl" className="mx-auto w-full max-w-6xl px-6 pt-28 pb-20">
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <span className="text-xs font-bold tracking-wider text-[#C99E4C]">بوابة التحويل الفوري</span>
-          <h2 className="mt-1 text-3xl md:text-4xl font-bold text-white">التوجيه المباشر للجهة أو الشركة المختصة</h2>
+          <span className="text-xs font-bold tracking-wider text-[#C99E4C]">التواصل المباشر</span>
+          <h2 className="mt-1 text-3xl md:text-4xl font-bold text-white">التواصل مع أراك</h2>
           <p className="mt-1.5 text-sm text-slate-300">
-            اختر المسار التنموي أو الشركة التابعة لتجهيز بطاقة تحويل برقم مرجعي فوري.
+            اختر جهة التواصل من المسارات التنموية أو شركات المجموعة لإرسال رسالتك مباشرة برقم مرجعي فوري.
           </p>
         </div>
         <span className="rounded-xl border border-[#C99E4C]/35 bg-[#0B1C2C]/85 px-4 py-2 text-xs font-mono text-[#E8C882] backdrop-blur-md">
@@ -101,7 +101,7 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
         <div className="lg:col-span-7 space-y-4">
           <div>
             <label className="block text-xs font-semibold text-slate-200 mb-1.5">
-              الجهة / المسار / الشركة المختصة
+              اختر جهة التواصل
             </label>
             <select
               value={selectedTarget}
@@ -167,7 +167,7 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-200 mb-1.5">ملخص الطلب أو الاستفسار</label>
+            <label className="block text-xs font-semibold text-slate-200 mb-1.5">ملخص الرسالة أو الاستفسار</label>
             <textarea
               rows={3}
               value={details}
@@ -182,27 +182,27 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
               href={mailtoHref}
               className="rounded-xl bg-[#C99E4C] px-6 py-3 text-xs sm:text-sm font-bold text-[#06161A] transition hover:bg-[#dcaf59]"
             >
-              إرسال التحويل ({activeOption?.email})
+              إرسال الرسالة ({activeOption?.email})
             </a>
             <button
               type="button"
               onClick={handleCopySummary}
               className="rounded-xl border border-white/20 bg-white/5 px-6 py-3 text-xs sm:text-sm font-semibold text-white transition hover:border-[#C99E4C]"
             >
-              {copied ? 'تم نسخ ملخص التحويل' : 'نسخ بطاقة التحويل'}
+              {copied ? 'تم نسخ بطاقة التواصل' : 'نسخ بطاقة التواصل'}
             </button>
           </div>
         </div>
 
         <div className="lg:col-span-5 rounded-2xl border border-white/10 bg-[#06161A]/90 p-5 flex flex-col justify-between">
           <div>
-            <div className="text-xs font-bold text-[#C99E4C] mb-2">معاينة بطاقة التحويل التنفيذية</div>
+            <div className="text-xs font-bold text-[#C99E4C] mb-2">معاينة بطاقة التواصل المباشر</div>
             <pre className="whitespace-pre-wrap font-sans text-xs sm:text-sm leading-relaxed text-slate-200">
               {builtSummary}
             </pre>
           </div>
           <div className="mt-5 border-t border-white/10 pt-3 text-[11px] text-slate-400">
-            توجيه مباشر للجهة المختصة في مجموعة أراك للتنمية دون تخزين بيانات في قواعد بيانات خارجية.
+            تواصل مباشر مع الجهة المختصة في مجموعة أراك للتنمية دون تخزين بيانات في قواعد بيانات خارجية.
           </div>
         </div>
       </div>

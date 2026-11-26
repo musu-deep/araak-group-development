@@ -202,7 +202,7 @@ export function App() {
                   }
                   className="rounded-xl border border-[#C99E4C]/45 bg-[#C99E4C]/15 px-3.5 py-2 text-xs font-bold text-[#F3D89B] hover:bg-[#C99E4C] hover:text-[#06161A] transition"
                 >
-                  تحويل للجهة
+                  تواصل مباشر
                 </button>
               </div>
 
@@ -246,7 +246,7 @@ export function App() {
                       افتح المسارات التفصيلية لـ ({axis.title})
                     </div>
                     <p className="text-xs text-slate-300">
-                      سجّل الاسم والبريد الإلكتروني لمرة واحدة لاستعراض التفاصيل الكاملة ومسارات التحويل.
+                      سجّل الاسم والبريد الإلكتروني لمرة واحدة لاستعراض التفاصيل الكاملة ومسارات التواصل المباشر.
                     </p>
                   </div>
                   <button
@@ -292,7 +292,7 @@ export function App() {
         activeScene={SCENE_META[sceneIndex].id}
         isElevated={sceneIndex > 0}
         onSelectScene={goToSceneId}
-        onQuickRouting={() => goToSceneId('routing', 'تحويل عام — مجموعة أراك للتنمية')}
+        onQuickRouting={() => goToSceneId('routing', 'التواصل المباشر — مجموعة أراك للتنمية')}
       />
 
       <aside
@@ -530,7 +530,7 @@ export function App() {
                       onClick={() => goToSceneId('routing', featuredCompany.routingKey)}
                       className="w-full rounded-xl bg-[#C99E4C] py-3 text-xs sm:text-sm font-bold text-[#06161A] hover:bg-[#dcaf59] transition"
                     >
-                      تحويل طلب مباشر إلى {featuredCompany.name}
+                      تواصل مباشر مع {featuredCompany.name}
                     </button>
                   </div>
                 </div>
@@ -667,4 +667,5 @@ export function App() {
 }
 
 export default App;
+
 
