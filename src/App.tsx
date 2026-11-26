@@ -2,6 +2,7 @@
 import { AccessGateModal, VisitorAccessData } from './components/AccessGateModal';
 import { FloatingNavbar } from './components/FloatingNavbar';
 import { SmartRoutingSection } from './components/SmartRoutingSection';
+import { HeroEntityShowcase } from './components/HeroEntityShowcase';
 import {
   ARAAK_COMPANIES,
   ARAAK_NEWS_HIGHLIGHTS,
@@ -662,6 +663,7 @@ export function App() {
 }
 
 export default App;
+
 
 
 
