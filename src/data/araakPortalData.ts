@@ -25,6 +25,7 @@ export interface StrategicAxis {
 export interface AraakEntity {
   id: string;
   name: string;
+  categoryBadge: 'شركة / وحدة تشغيلية' | 'تمثيل إقليمي' | 'كيان استشاري وتنموي' | 'منصة مجتمعية وتنموية';
   sector:
     | 'التنموي والاستشاري'
     | 'التدريب والأكاديمية'
@@ -201,6 +202,7 @@ export const ARAAK_ENTITIES: AraakEntity[] = [
   {
     id: 'araak-academy',
     name: 'أكاديمية أراك',
+    categoryBadge: 'شركة / وحدة تشغيلية',
     sector: 'التدريب والأكاديمية',
     role: 'الذراع التدريبي والأكاديمي',
     scope: 'الدبلومات والدورات والبرامج التدريبية الإلكترونية',
@@ -210,6 +212,7 @@ export const ARAAK_ENTITIES: AraakEntity[] = [
   {
     id: 'araak-national',
     name: 'أراك الوطنية',
+    categoryBadge: 'شركة / وحدة تشغيلية',
     sector: 'العقار والمشاريع',
     role: 'التطوير والمشاريع الوطنية',
     scope: 'المشاريع التنموية والعمرانية والتشغيلية',
@@ -219,6 +222,7 @@ export const ARAAK_ENTITIES: AraakEntity[] = [
   {
     id: 'araak-commercial',
     name: 'أراك التجارية',
+    categoryBadge: 'شركة / وحدة تشغيلية',
     sector: 'التجارة واللوجستيك',
     role: 'الأنشطة التجارية والتوريد',
     scope: 'التجارة العامة وتوفير المستلزمات والحلول التجارية',
@@ -228,6 +232,7 @@ export const ARAAK_ENTITIES: AraakEntity[] = [
   {
     id: 'araak-projects',
     name: 'أراك المشاريع',
+    categoryBadge: 'شركة / وحدة تشغيلية',
     sector: 'العقار والمشاريع',
     role: 'إدارة وتنفيذ المشاريع',
     scope: 'تخطيط وتنفيذ وإدارة المشاريع الكبرى',
@@ -237,6 +242,7 @@ export const ARAAK_ENTITIES: AraakEntity[] = [
   {
     id: 'araak-food',
     name: 'أراك الغذائية',
+    categoryBadge: 'شركة / وحدة تشغيلية',
     sector: 'التجارة واللوجستيك',
     role: 'القطاع الغذائي والإمداد',
     scope: 'المنتجات والخدمات الغذائية وسلاسل الإمداد',
@@ -246,6 +252,7 @@ export const ARAAK_ENTITIES: AraakEntity[] = [
   {
     id: 'araak-industrial',
     name: 'أراك الصناعية',
+    categoryBadge: 'شركة / وحدة تشغيلية',
     sector: 'الصناعة والحديد',
     role: 'التصنيع والإنتاج الصناعي',
     scope: 'العمليات الصناعية والمنتجات التصنيعية',
@@ -255,6 +262,7 @@ export const ARAAK_ENTITIES: AraakEntity[] = [
   {
     id: 'araak-iron',
     name: 'أراك الحديد',
+    categoryBadge: 'شركة / وحدة تشغيلية',
     sector: 'الصناعة والحديد',
     role: 'الحديد والمواد الإنشائية',
     scope: 'إمدادات وتطبيقات الحديد والصلب الإنشائي',
@@ -264,6 +272,7 @@ export const ARAAK_ENTITIES: AraakEntity[] = [
   {
     id: 'araak-stores',
     name: 'أراك ستورز',
+    categoryBadge: 'شركة / وحدة تشغيلية',
     sector: 'التجارة واللوجستيك',
     role: 'التجارة الإلكترونية والمتاجر',
     scope: 'منصات البيع والمتاجر الرقمية والتجارية',
@@ -273,6 +282,7 @@ export const ARAAK_ENTITIES: AraakEntity[] = [
   {
     id: 'araak-logistics',
     name: 'أراك لوجستيك',
+    categoryBadge: 'شركة / وحدة تشغيلية',
     sector: 'التجارة واللوجستيك',
     role: 'الخدمات اللوجستية والنقل',
     scope: 'التخزين، التوزيع، والربط اللوجستي',
@@ -282,6 +292,7 @@ export const ARAAK_ENTITIES: AraakEntity[] = [
   {
     id: 'araak-home',
     name: 'أراك هوم',
+    categoryBadge: 'شركة / وحدة تشغيلية',
     sector: 'العقار والمشاريع',
     role: 'الحلول السكنية والتجهيز',
     scope: 'تجهيزات المنازل والحلول السكنية المتكاملة',
@@ -291,6 +302,7 @@ export const ARAAK_ENTITIES: AraakEntity[] = [
   {
     id: 'araak-egypt',
     name: 'مكتب أراك مصر',
+    categoryBadge: 'تمثيل إقليمي',
     sector: 'التنموي والاستشاري',
     role: 'التمثيل والتشغيل الإقليمي',
     scope: 'المتابعة والتنسيق والخدمات في جمهورية مصر العربية',
@@ -300,6 +312,7 @@ export const ARAAK_ENTITIES: AraakEntity[] = [
   {
     id: 'reyada',
     name: 'ريادة للتطوير والاستشارات',
+    categoryBadge: 'كيان استشاري وتنموي',
     sector: 'التنموي والاستشاري',
     role: 'التطوير، الاستشارات، والتدريب القيادي',
     scope: 'بناء القدرات، الاستشارات الإدارية، والتحول الرقمي والذكاء الاصطناعي',
@@ -309,6 +322,7 @@ export const ARAAK_ENTITIES: AraakEntity[] = [
   {
     id: 'fas-dev',
     name: 'فاس التنموية',
+    categoryBadge: 'كيان استشاري وتنموي',
     sector: 'التنموي والاستشاري',
     role: 'التحول الرقمي والذكاء الاصطناعي والمشاريع التنموية',
     scope: 'تطوير الحلول الرقمية والذكاء الاصطناعي والمشاريع التنموية',
@@ -318,6 +332,7 @@ export const ARAAK_ENTITIES: AraakEntity[] = [
   {
     id: 'tanmeyat',
     name: 'مجتمع تنميات',
+    categoryBadge: 'منصة مجتمعية وتنموية',
     sector: 'التنموي والاستشاري',
     role: 'المنصة والمجتمع التنموي',
     scope: 'ربط المبادرات والخبرات والشراكات التنموية',

@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { AccessGateModal, VisitorAccessData } from './components/AccessGateModal';
 import { FloatingNavbar } from './components/FloatingNavbar';
 import { Hero } from './components/Hero';
@@ -21,6 +21,7 @@ const SECTORS = [
 ] as const;
 
 const SLIDE_ORDER: PortalSlide[] = ['hero', 'pillars', 'entities', 'routing'];
+const STORAGE_KEY = 'araak_portal_visitor_access_v1';
 
 export function App() {
   const [activeSlide, setActiveSlide] = useState<PortalSlide>('hero');
@@ -28,10 +29,41 @@ export function App() {
     'أكاديمية أراك الإلكترونية (قسم القبول والتسجيل بالأكاديمية)'
   );
   const [activeSector, setActiveSector] = useState<(typeof SECTORS)[number]>('الكل');
+  const [entityQuery, setEntityQuery] = useState('');
+  const [marqueePaused, setMarqueePaused] = useState(false);
+
   const [visitorData, setVisitorData] = useState<VisitorAccessData | null>(null);
   const [unlockedAxisIds, setUnlockedAxisIds] = useState<string[]>([]);
   const [pendingGateAxis, setPendingGateAxis] = useState<StrategicAxis | null>(null);
   const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw) as {
+          visitor?: VisitorAccessData;
+          unlocked?: string[];
+        };
+        if (parsed.visitor?.name && parsed.visitor?.email) {
+          setVisitorData(parsed.visitor);
+        }
+        if (Array.isArray(parsed.unlocked)) {
+          setUnlockedAxisIds(parsed.unlocked);
+        }
+      }
+    } catch {
+      // تجاهل أخطاء التخزين المحلي في المتصفحات المقيدة
+    }
+  }, []);
+
+  const persistAccess = (visitor: VisitorAccessData, unlocked: string[]) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ visitor, unlocked }));
+    } catch {
+      // تجاهل
+    }
+  };
 
   const goToSlide = (slide: PortalSlide, target?: string) => {
     if (target) setSelectedTarget(target);
@@ -56,21 +88,29 @@ export function App() {
 
   const handleUnlockGate = (data: VisitorAccessData) => {
     setVisitorData(data);
-    if (pendingGateAxis) {
-      setUnlockedAxisIds((prev) =>
-        prev.includes(pendingGateAxis.id) ? prev : [...prev, pendingGateAxis.id]
-      );
-    }
+    const nextUnlocked = pendingGateAxis
+      ? unlockedAxisIds.includes(pendingGateAxis.id)
+        ? unlockedAxisIds
+        : [...unlockedAxisIds, pendingGateAxis.id]
+      : unlockedAxisIds;
+    setUnlockedAxisIds(nextUnlocked);
+    persistAccess(data, nextUnlocked);
+
     const cb = pendingAction;
     setPendingGateAxis(null);
     setPendingAction(null);
     cb?.();
   };
 
-  const filteredEntities =
-    activeSector === 'الكل'
-      ? ARAAK_ENTITIES
-      : ARAAK_ENTITIES.filter((e) => e.sector === activeSector);
+  const filteredEntities = ARAAK_ENTITIES.filter((e) => {
+    const matchesSector = activeSector === 'الكل' || e.sector === activeSector;
+    const q = entityQuery.trim();
+    if (!q) return matchesSector;
+    return (
+      matchesSector &&
+      (e.name.includes(q) || e.role.includes(q) || e.scope.includes(q) || e.categoryBadge.includes(q))
+    );
+  });
 
   return (
     <div dir="rtl" className="min-h-screen bg-[#06161A] text-white font-sans flex flex-col justify-between">
@@ -82,8 +122,9 @@ export function App() {
         .araak-ltr-marquee {
           display: flex;
           width: max-content;
-          animation: araakLtrMarquee 36s linear infinite;
+          animation: araakLtrMarquee 38s linear infinite;
         }
+        .araak-ltr-marquee.paused,
         .araak-ltr-marquee:hover {
           animation-play-state: paused;
         }
@@ -98,7 +139,6 @@ export function App() {
       <main className="flex-1">
         {activeSlide === 'hero' && <Hero onNavigateSlide={goToSlide} />}
 
-        {/* شريحة التنمية والتدريب والاستشارات والمبادرات والإصدارات */}
         {activeSlide === 'pillars' && (
           <section className="mx-auto max-w-7xl px-6 pt-28 pb-16 space-y-12">
             <div className="flex flex-wrap items-end justify-between gap-4 border-b border-white/10 pb-5">
@@ -224,7 +264,6 @@ export function App() {
           </section>
         )}
 
-        {/* شريحة معرض شركات المجموعة والبطاقات الزجاجية + شريط متحرك LTR */}
         {activeSlide === 'entities' && (
           <section className="pt-28 pb-16 space-y-10 overflow-hidden">
             <div className="mx-auto max-w-7xl px-6 space-y-6">
@@ -239,47 +278,67 @@ export function App() {
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-2">
-                  {SECTORS.map((sector) => (
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                  <input
+                    type="text"
+                    value={entityQuery}
+                    onChange={(e) => setEntityQuery(e.target.value)}
+                    placeholder="ابحث باسم الشركة أو الكيان أو المجال..."
+                    className="rounded-xl border border-white/15 bg-[#0B1C2C]/90 px-4 py-2 text-xs text-white focus:border-[#C99E4C] focus:outline-none"
+                  />
+                  <div className="flex flex-wrap gap-2">
+                    {SECTORS.map((sector) => (
+                      <button
+                        key={sector}
+                        type="button"
+                        onClick={() => setActiveSector(sector)}
+                        className={`rounded-xl px-3.5 py-2 text-xs font-semibold transition ${
+                          activeSector === sector
+                            ? 'bg-[#C99E4C] text-[#06161A]'
+                            : 'border border-white/15 bg-[#0B1C2C]/80 text-slate-200 hover:border-[#C99E4C]'
+                        }`}
+                      >
+                        {sector}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div
+                dir="ltr"
+                className="w-full overflow-hidden rounded-2xl border border-[#C99E4C]/25 bg-[#0B1C2C]/70 backdrop-blur-xl py-3"
+              >
+                <div className={`araak-ltr-marquee gap-4 px-2 ${marqueePaused ? 'paused' : ''}`}>
+                  {[...filteredEntities, ...filteredEntities].map((entity, idx) => (
                     <button
-                      key={sector}
+                      key={`${entity.id}-ltr-${idx}`}
                       type="button"
-                      onClick={() => setActiveSector(sector)}
-                      className={`rounded-xl px-3.5 py-2 text-xs font-semibold transition ${
-                        activeSector === sector
-                          ? 'bg-[#C99E4C] text-[#06161A]'
-                          : 'border border-white/15 bg-[#0B1C2C]/80 text-slate-200 hover:border-[#C99E4C]'
-                      }`}
+                      onClick={() => goToSlide('routing', `${entity.name} — ${entity.role}`)}
+                      className="flex items-center gap-3 rounded-xl border border-white/10 bg-[#06161A]/85 px-4 py-2 text-xs text-slate-200 whitespace-nowrap hover:border-[#C99E4C]"
                     >
-                      {sector}
+                      <span className="h-2 w-2 rounded-full bg-[#C99E4C]" />
+                      <span className="font-bold text-[#E8C882]">{entity.name}</span>
+                      <span className="text-slate-400">|</span>
+                      <span>{entity.categoryBadge}</span>
+                      <span className="text-slate-400">•</span>
+                      <span className="text-slate-300">{entity.role}</span>
                     </button>
                   ))}
                 </div>
               </div>
 
-              {/* شريط متحرك من اليسار إلى اليمين ببيانات الكيانات */}
-              <div
-                dir="ltr"
-                className="w-full overflow-hidden rounded-2xl border border-[#C99E4C]/25 bg-[#0B1C2C]/70 backdrop-blur-xl py-3"
-              >
-                <div className="araak-ltr-marquee gap-4 px-2">
-                  {[...filteredEntities, ...filteredEntities].map((entity, idx) => (
-                    <div
-                      key={`${entity.id}-ltr-${idx}`}
-                      className="flex items-center gap-3 rounded-xl border border-white/10 bg-[#06161A]/80 px-4 py-2 text-xs text-slate-200 whitespace-nowrap"
-                    >
-                      <span className="h-2 w-2 rounded-full bg-[#C99E4C]" />
-                      <span className="font-bold text-[#E8C882]">{entity.name}</span>
-                      <span className="text-slate-400">|</span>
-                      <span>{entity.role}</span>
-                      <span className="text-slate-400">•</span>
-                      <span className="text-slate-300">{entity.scope}</span>
-                    </div>
-                  ))}
-                </div>
+              <div className="flex items-center justify-between text-xs text-slate-400">
+                <span>عدد الكيانات المعروضة: {filteredEntities.length}</span>
+                <button
+                  type="button"
+                  onClick={() => setMarqueePaused((p) => !p)}
+                  className="rounded-lg border border-white/15 bg-[#0B1C2C] px-3 py-1.5 text-slate-200 hover:border-[#C99E4C]"
+                >
+                  {marqueePaused ? 'تشغيل الشريط المتحرك' : 'إيقاف الشريط مؤقتاً'}
+                </button>
               </div>
 
-              {/* بطاقات زجاجية مصورة لمعرض الشركات والكيانات */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredEntities.map((entity) => (
                   <div
@@ -295,11 +354,12 @@ export function App() {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#06161A] via-[#06161A]/35 to-transparent" />
                         <span className="absolute top-3 right-3 rounded-full border border-white/20 bg-[#08191E]/75 px-3 py-1 text-[11px] font-semibold text-[#E8C882] backdrop-blur-md">
-                          {entity.sector}
+                          {entity.categoryBadge}
                         </span>
                       </div>
 
                       <div className="p-5 space-y-2">
+                        <div className="text-[11px] text-slate-400">{entity.sector}</div>
                         <h3 className="text-xl font-bold text-white">{entity.name}</h3>
                         <div className="text-xs font-semibold text-[#C99E4C]">{entity.role}</div>
                         <p className="text-xs text-slate-200/90 leading-relaxed pt-1">{entity.scope}</p>
@@ -323,7 +383,6 @@ export function App() {
           </section>
         )}
 
-        {/* شريحة بوابة التحويل للجهة المختصة */}
         {activeSlide === 'routing' && (
           <SmartRoutingSection
             selectedTarget={selectedTarget}
@@ -333,7 +392,6 @@ export function App() {
         )}
       </main>
 
-      {/* شريط تنقل الشرائح السفلي والتذييل */}
       <div className="border-t border-white/10 bg-[#051216] px-6 py-6">
         <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-2">
