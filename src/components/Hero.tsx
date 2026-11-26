@@ -51,7 +51,7 @@ export const Hero: React.FC<HeroProps> = ({ onSelectRouting }) => {
               </a>
               <button
                 type="button"
-                onClick={() => onSelectRouting('تحويل عام — مجموعة أراك للتنمية')}
+                onClick={() => onSelectRouting('أكاديمية أراك الإلكترونية (قسم القبول والتسجيل بالأكاديمية)')}
                 className="rounded-xl border border-white/25 bg-white/10 px-7 py-3.5 text-base font-semibold text-white backdrop-blur-md transition hover:border-[#C99E4C] hover:bg-white/15"
               >
                 التحويل إلى الجهة المختصة
