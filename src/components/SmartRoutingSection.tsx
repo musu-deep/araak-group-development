@@ -28,14 +28,14 @@ const REQUESTER_TYPES = [
   'مستفيد / باحث / متدرب',
 ] as const;
 
-const SOCIAL_ACCOUNTS = [
-  { platform: 'الموقع الإلكتروني', handle: 'araak.org', url: 'https://araak.org' },
-  { platform: 'منصة X', handle: '@AraakGroup', url: 'https://x.com' },
-  { platform: 'لينكدإن', handle: 'Araak Development Group', url: 'https://linkedin.com' },
-  { platform: 'إنستغرام ويوتيوب', handle: '@AraakDev', url: 'https://instagram.com' },
-];
+const SOCIAL_LINKS = [
+  { name: 'الموقع', url: 'https://araak.org', icon: 'globe' },
+  { name: 'X', url: 'https://x.com', icon: 'x' },
+  { name: 'LinkedIn', url: 'https://linkedin.com', icon: 'in' },
+  { name: 'Instagram', url: 'https://instagram.com', icon: 'ig' },
+  { name: 'YouTube', url: 'https://youtube.com', icon: 'yt' },
+] as const;
 
-// مولد مصفوفة QR حتمي ومستقر يعكس نص الرابط والرمز المرجعي
 function buildQrMatrix(seedText: string, size = 21): boolean[][] {
   const matrix: boolean[][] = Array.from({ length: size }, () => Array(size).fill(false));
 
@@ -77,6 +77,44 @@ function buildQrMatrix(seedText: string, size = 21): boolean[][] {
   return matrix;
 }
 
+const renderSocialIcon = (icon: (typeof SOCIAL_LINKS)[number]['icon']) => {
+  switch (icon) {
+    case 'globe':
+      return (
+        <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="1.9">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
+        </svg>
+      );
+    case 'x':
+      return (
+        <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </svg>
+      );
+    case 'in':
+      return (
+        <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current">
+          <path d="M6.94 8.5H3.56V19.5h3.38V8.5zM5.25 3.5a1.97 1.97 0 1 0 0 3.94 1.97 1.97 0 0 0 0-3.94zM20.44 13.02c0-2.74-1.46-4.01-3.41-4.01-1.57 0-2.28.86-2.67 1.47V8.5h-3.38c.04.96 0 11 0 11h3.38v-6.14c0-.33.02-.66.12-.89.27-.66.88-1.35 1.9-1.35 1.34 0 1.87 1.02 1.87 2.51V19.5h3.38v-6.48z" />
+        </svg>
+      );
+    case 'ig':
+      return (
+        <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="1.9">
+          <rect x="3" y="3" width="18" height="18" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="1" className="fill-current" />
+        </svg>
+      );
+    case 'yt':
+      return (
+        <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current">
+          <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z" />
+        </svg>
+      );
+  }
+};
+
 export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
   selectedTarget,
   onChangeTarget,
@@ -103,14 +141,14 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
     const axes = [...DEVELOPMENTAL_AXES, ...INITIATIVES_AND_PUBLICATIONS].map((axis) => ({
       id: `axis-${axis.id}`,
       shortName: axis.title,
-      fullLabel: `${axis.title} (${axis.routingLabel})`,
+      fullLabel: axis.title,
       email: axis.contactEmail,
     }));
 
     const companies = ARAAK_COMPANIES.map((company) => ({
       id: `company-${company.id}`,
       shortName: company.name,
-      fullLabel: `${company.name} — ${company.headline}`,
+      fullLabel: company.name,
       email: 'info@araak.org',
     }));
 
@@ -122,17 +160,17 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
       (opt) => opt.fullLabel === selectedTarget || opt.shortName === selectedTarget
     ) || contactOptions[0];
 
-  const targetLabel = activeOption?.fullLabel || selectedTarget;
+  const targetName = activeOption?.shortName || selectedTarget;
   const targetEmail = activeOption?.email || 'info@araak.org';
 
   const qrPayload = `https://araak.org/contact?ref=${referenceCode}&entity=${encodeURIComponent(
-    activeOption?.shortName || 'araak'
+    targetName
   )}`;
   const qrMatrix = useMemo(() => buildQrMatrix(qrPayload, 21), [qrPayload]);
 
   const builtSummary = [
     `الرقم المرجعي: ${referenceCode}`,
-    `جهة التواصل: ${activeOption?.shortName || targetLabel}`,
+    `جهة التواصل: ${targetName}`,
     `تصنيف مقدم الطلب: ${requesterType}`,
     `الجهة / المؤسسة الطالبة: ${organizationName.trim() || 'غير محدد'}`,
     `مقدم الطلب: ${contactName.trim() || 'غير محدد'}`,
@@ -147,7 +185,7 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
   };
 
   const mailtoHref = `mailto:${encodeURIComponent(targetEmail)}?subject=${encodeURIComponent(
-    `[${referenceCode}] التواصل مع أراك — ${activeOption?.shortName || targetLabel}`
+    `[${referenceCode}] التواصل مع أراك — ${targetName}`
   )}&body=${encodeURIComponent(builtSummary)}`;
 
   return (
@@ -161,7 +199,7 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
           <span className="text-xs font-bold tracking-wider text-[#C99E4C]">التواصل المباشر</span>
           <h2 className="mt-1 text-3xl md:text-4xl font-extrabold text-white">التواصل مع أراك</h2>
           <p className="mt-1 text-sm text-slate-300">
-            اختر جهة التواصل من البطاقات أدناه وأرسل رسالتك مباشرة إلى الجهة المعنية.
+            اختر جهة التواصل من القائمة المنسدلة وأرسل رسالتك مباشرة إلى الجهة المعنية.
           </p>
         </div>
         <span className="rounded-xl border border-[#C99E4C]/35 bg-[#0B1C2C]/85 px-4 py-2 text-xs font-semibold text-[#E8C882] backdrop-blur-md">
@@ -169,142 +207,97 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
         </span>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 rounded-3xl border border-white/15 bg-[#091B22]/85 backdrop-blur-2xl p-6 md:p-8 shadow-2xl">
-        {/* الجزء الأيمن: شعار المجموعة، العناوين، أرقام التواصل، السوشال ميديا، ورمز QR */}
-        <div className="lg:col-span-5 rounded-2xl border border-[#C99E4C]/25 bg-[#06161A]/90 p-5 flex flex-col justify-between gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 rounded-3xl border border-white/15 bg-[#091B22]/85 backdrop-blur-2xl p-6 md:p-8 shadow-2xl items-center">
+        {/* الجزء الأيمن: بيانات المجموعة بدون إطارات + رموز السوشال ميديا مباشرة + QR كبير الحجم */}
+        <div className="lg:col-span-5 rounded-2xl border border-[#C99E4C]/25 bg-[#06161A]/90 p-6 flex flex-col justify-between gap-6">
           <div className="space-y-4">
-            {/* شعار المجموعة وهويتها */}
-            <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-4">
-              <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#C99E4C]/50 bg-gradient-to-br from-[#C99E4C]/25 to-[#0B1C2C] text-[#F3D89B] shadow-inner">
-                  <svg viewBox="0 0 48 48" className="h-7 w-7 fill-none stroke-current" strokeWidth="2.2">
-                    <path d="M24 6L39 15V33L24 42L9 33V15L24 6Z" />
-                    <path d="M24 14L31 32H17L24 14Z" className="fill-[#C99E4C]/30" />
-                    <circle cx="24" cy="26" r="2.2" className="fill-[#F3D89B]" />
-                  </svg>
-                </div>
-                <div>
-                  <div className="text-base font-extrabold text-white">{ARAAK_IDENTITY.groupName}</div>
-                  <div className="text-[11px] font-semibold text-[#C99E4C]">{ARAAK_IDENTITY.tagline}</div>
-                </div>
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#C99E4C]/45 bg-[#C99E4C]/15 text-[#F3D89B]">
+                <svg viewBox="0 0 48 48" className="h-6 w-6 fill-none stroke-current" strokeWidth="2.2">
+                  <path d="M24 6L39 15V33L24 42L9 33V15L24 6Z" />
+                  <path d="M24 14L31 32H17L24 14Z" className="fill-[#C99E4C]/30" />
+                  <circle cx="24" cy="26" r="2.2" className="fill-[#F3D89B]" />
+                </svg>
               </div>
-              <span className="rounded-lg border border-[#C99E4C]/30 bg-[#C99E4C]/10 px-2.5 py-1 text-[11px] font-bold text-[#F3D89B]">
-                {ARAAK_IDENTITY.reachMetric}
-              </span>
-            </div>
-
-            {/* العناوين وأرقام التواصل */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              <div className="rounded-xl border border-white/10 bg-[#0B1C2C]/75 p-3">
-                <div className="text-[11px] font-bold text-[#C99E4C]">العناوين والمقرات</div>
-                <p className="mt-1 text-xs text-slate-200 leading-relaxed">
-                  المملكة العربية السعودية — جدة • الرياض • مكة المكرمة
-                </p>
-              </div>
-              <div className="rounded-xl border border-white/10 bg-[#0B1C2C]/75 p-3">
-                <div className="text-[11px] font-bold text-[#C99E4C]">أرقام التواصل</div>
-                <div className="mt-1 space-y-1 text-xs font-semibold text-white" dir="ltr">
-                  <div className="text-right">+966 12 000 0000</div>
-                  <div className="text-right text-slate-300">info@araak.org</div>
-                </div>
+              <div>
+                <div className="text-base font-extrabold text-white">{ARAAK_IDENTITY.groupName}</div>
+                <div className="text-xs text-[#C99E4C]">{ARAAK_IDENTITY.tagline}</div>
               </div>
             </div>
 
-            {/* حسابات التواصل الاجتماعي */}
-            <div className="rounded-xl border border-white/10 bg-[#0B1C2C]/65 p-3 space-y-2">
-              <div className="text-[11px] font-bold text-[#C99E4C]">حسابات التواصل الاجتماعي</div>
-              <div className="grid grid-cols-2 gap-2">
-                {SOCIAL_ACCOUNTS.map((acc) => (
+            <div className="space-y-1.5 text-sm text-slate-200 leading-relaxed pt-1">
+              <p className="font-bold text-white">{ARAAK_IDENTITY.groupName} — {ARAAK_IDENTITY.tagline}</p>
+              <p className="text-slate-300">جدة - حي الروضة</p>
+              <p className="text-slate-200">
+                تلفون: <span dir="ltr" className="font-bold text-[#E8C882]">+966 12 000 0000</span>
+              </p>
+            </div>
+
+            {/* رموز حسابات السوشال ميديا مباشرة بدون إطارات */}
+            <div className="pt-1">
+              <div className="text-xs font-bold text-[#C99E4C] mb-2.5">سوشال</div>
+              <div className="flex items-center gap-4 text-slate-200">
+                {SOCIAL_LINKS.map((item) => (
                   <a
-                    key={acc.platform}
-                    href={acc.url}
+                    key={item.name}
+                    href={item.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-lg border border-white/10 bg-[#06161A]/80 px-2.5 py-2 transition hover:border-[#C99E4C]/60"
+                    title={item.name}
+                    aria-label={item.name}
+                    className="text-slate-200 transition hover:text-[#F3D89B] hover:scale-110"
                   >
-                    <div className="text-[10px] text-slate-400">{acc.platform}</div>
-                    <div className="text-xs font-bold text-[#E8C882] truncate mt-0.5">{acc.handle}</div>
+                    {renderSocialIcon(item.icon)}
                   </a>
                 ))}
               </div>
             </div>
+          </div>
 
-            {/* رمز QR Code بحجم مناسب داخل البطاقة */}
-            <div className="rounded-xl border border-[#C99E4C]/30 bg-[#0B1C2C]/80 p-3.5 flex items-center justify-between gap-4">
-              <div className="space-y-1.5">
-                <div className="text-xs font-extrabold text-[#F3D89B]">رمز الوصول السريع (QR)</div>
-                <p className="text-[11px] text-slate-300 leading-relaxed">
-                  امسح الرمز للوصول السريع إلى قناة التواصل الخاصة بـ{' '}
-                  <span className="font-bold text-white">{activeOption?.shortName}</span>.
-                </p>
-                <div className="text-[10px] font-semibold text-[#C99E4C]">المرجع: {referenceCode}</div>
-              </div>
-
-              <div className="shrink-0 rounded-xl bg-white p-2 shadow-md">
-                <div
-                  className="grid gap-[1px]"
-                  style={{
-                    gridTemplateColumns: `repeat(${qrMatrix.length}, minmax(0, 1fr))`,
-                    width: '84px',
-                    height: '84px',
-                  }}
-                  aria-label={`رمز QR لجهة ${activeOption?.shortName || 'أراك'}`}
-                >
-                  {qrMatrix.flatMap((row, rIdx) =>
-                    row.map((cell, cIdx) => (
-                      <span
-                        key={`${rIdx}-${cIdx}`}
-                        className={cell ? 'bg-[#06161A]' : 'bg-white'}
-                      />
-                    ))
-                  )}
-                </div>
+          {/* رمز QR كبير الحجم داخل البطاقة */}
+          <div className="pt-2 flex flex-col items-center justify-center border-t border-white/10">
+            <div className="rounded-2xl bg-white p-3.5 shadow-xl">
+              <div
+                className="grid gap-[1.5px]"
+                style={{
+                  gridTemplateColumns: `repeat(${qrMatrix.length}, minmax(0, 1fr))`,
+                  width: '156px',
+                  height: '156px',
+                }}
+                aria-label={`رمز QR لجهة ${targetName}`}
+              >
+                {qrMatrix.flatMap((row, rIdx) =>
+                  row.map((cell, cIdx) => (
+                    <span
+                      key={`${rIdx}-${cIdx}`}
+                      className={cell ? 'bg-[#06161A]' : 'bg-white'}
+                    />
+                  ))
+                )}
               </div>
             </div>
+            <div className="mt-2.5 text-xs font-semibold text-[#E8C882]">{targetName}</div>
           </div>
         </div>
 
-        {/* الجزء الأيسر: بطاقات عمودين لاسم الجهة فقط + حقول التواصل */}
+        {/* الجزء الأيسر: قائمة منسدلة لجهة التواصل + حقول الإدخال */}
         <div className="lg:col-span-7 space-y-4">
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-slate-200">اختر جهة التواصل</span>
-              <span className="text-[11px] text-[#E8C882] font-semibold">
-                المحددة: {activeOption?.shortName}
-              </span>
-            </div>
-
-            {/* قائمة بطاقات على عمودين تعرض اسم المؤسسة أو الشركة فقط بدون شرح أنشطتها */}
-            <div
-              role="radiogroup"
-              aria-label="اختر جهة التواصل"
-              className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-52 overflow-y-auto pl-1"
+            <label htmlFor="araak-contact-target" className="block text-xs font-bold text-slate-200 mb-1.5">
+              اختر جهة التواصل
+            </label>
+            <select
+              id="araak-contact-target"
+              value={targetName}
+              onChange={(e) => onChangeTarget(e.target.value)}
+              className="w-full rounded-xl border border-white/15 bg-[#06161A]/90 px-4 py-3 text-sm font-bold text-white focus:border-[#C99E4C] focus:outline-none"
             >
-              {contactOptions.map((opt) => {
-                const isSelected = opt.id === activeOption?.id;
-                return (
-                  <button
-                    key={opt.id}
-                    type="button"
-                    role="radio"
-                    aria-checked={isSelected}
-                    onClick={() => onChangeTarget(opt.fullLabel)}
-                    className={`flex items-center justify-between rounded-xl border px-3.5 py-2.5 text-right text-xs sm:text-sm font-bold transition ${
-                      isSelected
-                        ? 'border-[#C99E4C] bg-[#C99E4C]/20 text-[#F3D89B] shadow-md'
-                        : 'border-white/10 bg-[#06161A]/85 text-slate-200 hover:border-[#C99E4C]/50 hover:bg-[#0B1C2C]'
-                    }`}
-                  >
-                    <span className="truncate">{opt.shortName}</span>
-                    <span
-                      className={`h-2.5 w-2.5 rounded-full shrink-0 ${
-                        isSelected ? 'bg-[#C99E4C]' : 'border border-white/30'
-                      }`}
-                    />
-                  </button>
-                );
-              })}
-            </div>
+              {contactOptions.map((opt) => (
+                <option key={opt.id} value={opt.shortName}>
+                  {opt.shortName}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -313,7 +306,7 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
               <select
                 value={requesterType}
                 onChange={(e) => setRequesterType(e.target.value as (typeof REQUESTER_TYPES)[number])}
-                className="w-full rounded-xl border border-white/15 bg-[#06161A]/90 px-4 py-2.5 text-sm font-medium text-white focus:border-[#C99E4C] focus:outline-none"
+                className="w-full rounded-xl border border-white/15 bg-[#06161A]/90 px-4 py-3 text-sm font-medium text-white focus:border-[#C99E4C] focus:outline-none"
               >
                 {REQUESTER_TYPES.map((type) => (
                   <option key={type} value={type}>
@@ -329,7 +322,7 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
                 value={organizationName}
                 onChange={(e) => setOrganizationName(e.target.value)}
                 placeholder="مثال: شركة / مؤسسة / جهة تعليمية"
-                className="w-full rounded-xl border border-white/15 bg-[#06161A]/90 px-4 py-2.5 text-sm text-white focus:border-[#C99E4C] focus:outline-none"
+                className="w-full rounded-xl border border-white/15 bg-[#06161A]/90 px-4 py-3 text-sm text-white focus:border-[#C99E4C] focus:outline-none"
               />
             </div>
           </div>
@@ -342,7 +335,7 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
                 value={contactName}
                 onChange={(e) => setContactName(e.target.value)}
                 placeholder="الاسم الكامل"
-                className="w-full rounded-xl border border-white/15 bg-[#06161A]/90 px-4 py-2.5 text-sm text-white focus:border-[#C99E4C] focus:outline-none"
+                className="w-full rounded-xl border border-white/15 bg-[#06161A]/90 px-4 py-3 text-sm text-white focus:border-[#C99E4C] focus:outline-none"
               />
             </div>
             <div>
@@ -352,7 +345,7 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
                 value={contactInfo}
                 onChange={(e) => setContactInfo(e.target.value)}
                 placeholder="example@domain.com أو رقم الهاتف"
-                className="w-full rounded-xl border border-white/15 bg-[#06161A]/90 px-4 py-2.5 text-sm text-white focus:border-[#C99E4C] focus:outline-none"
+                className="w-full rounded-xl border border-white/15 bg-[#06161A]/90 px-4 py-3 text-sm text-white focus:border-[#C99E4C] focus:outline-none"
               />
             </div>
           </div>
@@ -360,11 +353,11 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
           <div>
             <label className="block text-xs font-bold text-slate-200 mb-1.5">ملخص الرسالة أو الاستفسار</label>
             <textarea
-              rows={2}
+              rows={3}
               value={details}
               onChange={(e) => setDetails(e.target.value)}
               placeholder="اكتب نبذة مختصرة عن البرنامج أو المشروع أو الشراكة المطلوبة..."
-              className="w-full rounded-xl border border-white/15 bg-[#06161A]/90 px-4 py-2.5 text-sm text-white focus:border-[#C99E4C] focus:outline-none"
+              className="w-full rounded-xl border border-white/15 bg-[#06161A]/90 px-4 py-3 text-sm text-white focus:border-[#C99E4C] focus:outline-none"
             />
           </div>
 
