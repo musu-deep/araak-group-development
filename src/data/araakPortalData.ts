@@ -18,17 +18,26 @@ export interface StrategicAxis {
   summary: string;
   routingLabel: string;
   contactEmail: string;
+  requiresGate?: boolean;
   branches: PillarBranch[];
 }
 
 export interface AraakEntity {
   id: string;
   name: string;
-  sector: 'التنموي والاستشاري' | 'التدريب والأكاديمية' | 'التجارة واللوجستيك' | 'الصناعة والحديد' | 'العقار والمشاريع';
+  sector:
+    | 'التنموي والاستشاري'
+    | 'التدريب والأكاديمية'
+    | 'التجارة واللوجستيك'
+    | 'الصناعة والحديد'
+    | 'العقار والمشاريع';
   role: string;
   scope: string;
+  imageUrl: string;
   routingKey: string;
 }
+
+export type PortalSlide = 'hero' | 'pillars' | 'entities' | 'routing';
 
 export const ARAAK_IDENTITY = {
   groupName: 'مجموعة أراك للتنمية',
@@ -50,6 +59,7 @@ export const STRATEGIC_AXES: StrategicAxis[] = [
     summary: 'منظومة تعليمية وتدريبية متكاملة للدبلومات والدورات التخصصية والبرامج التنموية.',
     routingLabel: 'قسم القبول والتسجيل بالأكاديمية',
     contactEmail: 'academy@araak.org',
+    requiresGate: true,
     branches: [
       {
         id: 'diplomas',
@@ -92,6 +102,7 @@ export const STRATEGIC_AXES: StrategicAxis[] = [
     summary: 'الاستشارات المتخصصة، الاعتمادات المهنية والأكاديمية، وحلول التطوير المؤسسي.',
     routingLabel: 'مكتب الخدمات الاستشارية والاعتمادات',
     contactEmail: 'services@araak.org',
+    requiresGate: true,
     branches: [
       {
         id: 'consulting',
@@ -130,6 +141,7 @@ export const STRATEGIC_AXES: StrategicAxis[] = [
     summary: 'برامج قيادية وتأهيلية ومجتمعية لصناعة الأثر المستدام.',
     routingLabel: 'إدارة المشاريع والمبادرات التنموية',
     contactEmail: 'initiatives@araak.org',
+    requiresGate: true,
     branches: [
       {
         id: 'leadership-programs',
@@ -169,6 +181,7 @@ export const STRATEGIC_AXES: StrategicAxis[] = [
     summary: 'محتوى معرفي وبحثي يوثق التجارب والرؤى التنموية.',
     routingLabel: 'مركز الإصدارات والدراسات',
     contactEmail: 'publications@araak.org',
+    requiresGate: false,
     branches: [
       {
         id: 'publications-list',
@@ -185,18 +198,130 @@ export const STRATEGIC_AXES: StrategicAxis[] = [
 ];
 
 export const ARAAK_ENTITIES: AraakEntity[] = [
-  { id: 'araak-academy', name: 'أكاديمية أراك', sector: 'التدريب والأكاديمية', role: 'الذراع التدريبي والأكاديمي', scope: 'الدبلومات والدورات والبرامج التدريبية الإلكترونية', routingKey: 'كيان أكاديمية أراك' },
-  { id: 'araak-national', name: 'أراك الوطنية', sector: 'العقار والمشاريع', role: 'التطوير والمشاريع الوطنية', scope: 'المشاريع التنموية والعمرانية والتشغيلية', routingKey: 'كيان أراك الوطنية' },
-  { id: 'araak-commercial', name: 'أراك التجارية', sector: 'التجارة واللوجستيك', role: 'الأنشطة التجارية والتوريد', scope: 'التجارة العامة وتوفير المستلزمات والحلول التجارية', routingKey: 'كيان أراك التجارية' },
-  { id: 'araak-projects', name: 'أراك المشاريع', sector: 'العقار والمشاريع', role: 'إدارة وتنفيذ المشاريع', scope: 'تخطيط وتنفيذ وإدارة المشاريع الكبرى', routingKey: 'كيان أراك المشاريع' },
-  { id: 'araak-food', name: 'أراك الغذائية', sector: 'التجارة واللوجستيك', role: 'القطاع الغذائي والإمداد', scope: 'المنتجات والخدمات الغذائية وسلاسل الإمداد', routingKey: 'كيان أراك الغذائية' },
-  { id: 'araak-industrial', name: 'أراك الصناعية', sector: 'الصناعة والحديد', role: 'التصنيع والإنتاج الصناعي', scope: 'العمليات الصناعية والمنتجات التصنيعية', routingKey: 'كيان أراك الصناعية' },
-  { id: 'araak-iron', name: 'أراك الحديد', sector: 'الصناعة والحديد', role: 'الحديد والمواد الإنشائية', scope: 'إمدادات وتطبيقات الحديد والصلب الإنشائي', routingKey: 'كيان أراك الحديد' },
-  { id: 'araak-stores', name: 'أراك ستورز', sector: 'التجارة واللوجستيك', role: 'التجارة الإلكترونية والمتاجر', scope: 'منصات البيع والمتاجر الرقمية والتجارية', routingKey: 'كيان أراك ستورز' },
-  { id: 'araak-logistics', name: 'أراك لوجستيك', sector: 'التجارة واللوجستيك', role: 'الخدمات اللوجستية والنقل', scope: 'التخزين، التوزيع، والربط اللوجستي', routingKey: 'كيان أراك لوجستيك' },
-  { id: 'araak-home', name: 'أراك هوم', sector: 'العقار والمشاريع', role: 'الحلول السكنية والتجهيز', scope: 'تجهيزات المنازل والحلول السكنية المتكاملة', routingKey: 'كيان أراك هوم' },
-  { id: 'araak-egypt', name: 'مكتب أراك مصر', sector: 'التنموي والاستشاري', role: 'التمثيل والتشغيل الإقليمي', scope: 'المتابعة والتنسيق والخدمات في جمهورية مصر العربية', routingKey: 'مكتب أراك مصر' },
-  { id: 'reyada', name: 'ريادة للتطوير والاستشارات', sector: 'التنموي والاستشاري', role: 'التطوير، الاستشارات، والتدريب القيادي', scope: 'بناء القدرات، الاستشارات الإدارية، والتحول الرقمي والذكاء الاصطناعي', routingKey: 'ريادة للتطوير والاستشارات' },
-  { id: 'fas-dev', name: 'فاس التنموية', sector: 'التنموي والاستشاري', role: 'التحول الرقمي والذكاء الاصطناعي والمشاريع التنموية', scope: 'تطوير الحلول الرقمية والذكاء الاصطناعي والمشاريع التنموية', routingKey: 'فاس التنموية' },
-  { id: 'tanmeyat', name: 'مجتمع تنميات', sector: 'التنموي والاستشاري', role: 'المنصة والمجتمع التنموي', scope: 'ربط المبادرات والخبرات والشراكات التنموية', routingKey: 'مجتمع تنميات' },
+  {
+    id: 'araak-academy',
+    name: 'أكاديمية أراك',
+    sector: 'التدريب والأكاديمية',
+    role: 'الذراع التدريبي والأكاديمي',
+    scope: 'الدبلومات والدورات والبرامج التدريبية الإلكترونية',
+    imageUrl: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=85',
+    routingKey: 'كيان أكاديمية أراك',
+  },
+  {
+    id: 'araak-national',
+    name: 'أراك الوطنية',
+    sector: 'العقار والمشاريع',
+    role: 'التطوير والمشاريع الوطنية',
+    scope: 'المشاريع التنموية والعمرانية والتشغيلية',
+    imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=85',
+    routingKey: 'كيان أراك الوطنية',
+  },
+  {
+    id: 'araak-commercial',
+    name: 'أراك التجارية',
+    sector: 'التجارة واللوجستيك',
+    role: 'الأنشطة التجارية والتوريد',
+    scope: 'التجارة العامة وتوفير المستلزمات والحلول التجارية',
+    imageUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=85',
+    routingKey: 'كيان أراك التجارية',
+  },
+  {
+    id: 'araak-projects',
+    name: 'أراك المشاريع',
+    sector: 'العقار والمشاريع',
+    role: 'إدارة وتنفيذ المشاريع',
+    scope: 'تخطيط وتنفيذ وإدارة المشاريع الكبرى',
+    imageUrl: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=85',
+    routingKey: 'كيان أراك المشاريع',
+  },
+  {
+    id: 'araak-food',
+    name: 'أراك الغذائية',
+    sector: 'التجارة واللوجستيك',
+    role: 'القطاع الغذائي والإمداد',
+    scope: 'المنتجات والخدمات الغذائية وسلاسل الإمداد',
+    imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=85',
+    routingKey: 'كيان أراك الغذائية',
+  },
+  {
+    id: 'araak-industrial',
+    name: 'أراك الصناعية',
+    sector: 'الصناعة والحديد',
+    role: 'التصنيع والإنتاج الصناعي',
+    scope: 'العمليات الصناعية والمنتجات التصنيعية',
+    imageUrl: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=85',
+    routingKey: 'كيان أراك الصناعية',
+  },
+  {
+    id: 'araak-iron',
+    name: 'أراك الحديد',
+    sector: 'الصناعة والحديد',
+    role: 'الحديد والمواد الإنشائية',
+    scope: 'إمدادات وتطبيقات الحديد والصلب الإنشائي',
+    imageUrl: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=85',
+    routingKey: 'كيان أراك الحديد',
+  },
+  {
+    id: 'araak-stores',
+    name: 'أراك ستورز',
+    sector: 'التجارة واللوجستيك',
+    role: 'التجارة الإلكترونية والمتاجر',
+    scope: 'منصات البيع والمتاجر الرقمية والتجارية',
+    imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=85',
+    routingKey: 'كيان أراك ستورز',
+  },
+  {
+    id: 'araak-logistics',
+    name: 'أراك لوجستيك',
+    sector: 'التجارة واللوجستيك',
+    role: 'الخدمات اللوجستية والنقل',
+    scope: 'التخزين، التوزيع، والربط اللوجستي',
+    imageUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=85',
+    routingKey: 'كيان أراك لوجستيك',
+  },
+  {
+    id: 'araak-home',
+    name: 'أراك هوم',
+    sector: 'العقار والمشاريع',
+    role: 'الحلول السكنية والتجهيز',
+    scope: 'تجهيزات المنازل والحلول السكنية المتكاملة',
+    imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85',
+    routingKey: 'كيان أراك هوم',
+  },
+  {
+    id: 'araak-egypt',
+    name: 'مكتب أراك مصر',
+    sector: 'التنموي والاستشاري',
+    role: 'التمثيل والتشغيل الإقليمي',
+    scope: 'المتابعة والتنسيق والخدمات في جمهورية مصر العربية',
+    imageUrl: 'https://images.unsplash.com/photo-1572252009286-268f99a7af06?auto=format&fit=crop&w=1200&q=85',
+    routingKey: 'مكتب أراك مصر',
+  },
+  {
+    id: 'reyada',
+    name: 'ريادة للتطوير والاستشارات',
+    sector: 'التنموي والاستشاري',
+    role: 'التطوير، الاستشارات، والتدريب القيادي',
+    scope: 'بناء القدرات، الاستشارات الإدارية، والتحول الرقمي والذكاء الاصطناعي',
+    imageUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=85',
+    routingKey: 'ريادة للتطوير والاستشارات',
+  },
+  {
+    id: 'fas-dev',
+    name: 'فاس التنموية',
+    sector: 'التنموي والاستشاري',
+    role: 'التحول الرقمي والذكاء الاصطناعي والمشاريع التنموية',
+    scope: 'تطوير الحلول الرقمية والذكاء الاصطناعي والمشاريع التنموية',
+    imageUrl: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=85',
+    routingKey: 'فاس التنموية',
+  },
+  {
+    id: 'tanmeyat',
+    name: 'مجتمع تنميات',
+    sector: 'التنموي والاستشاري',
+    role: 'المنصة والمجتمع التنموي',
+    scope: 'ربط المبادرات والخبرات والشراكات التنموية',
+    imageUrl: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=85',
+    routingKey: 'مجتمع تنميات',
+  },
 ];

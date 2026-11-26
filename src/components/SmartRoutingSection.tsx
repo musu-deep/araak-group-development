@@ -1,20 +1,28 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { ARAAK_ENTITIES, STRATEGIC_AXES } from '../data/araakPortalData';
+import { VisitorAccessData } from './AccessGateModal';
 
 interface SmartRoutingSectionProps {
   selectedTarget: string;
   onChangeTarget: (target: string) => void;
+  visitorData: VisitorAccessData | null;
 }
 
 export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
   selectedTarget,
   onChangeTarget,
+  visitorData,
 }) => {
   const [organizationName, setOrganizationName] = useState('');
-  const [contactName, setContactName] = useState('');
-  const [contactInfo, setContactInfo] = useState('');
+  const [contactName, setContactName] = useState(visitorData?.name || '');
+  const [contactInfo, setContactInfo] = useState(visitorData?.email || '');
   const [details, setDetails] = useState('');
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (visitorData?.name && !contactName) setContactName(visitorData.name);
+    if (visitorData?.email && !contactInfo) setContactInfo(visitorData.email);
+  }, [visitorData, contactName, contactInfo]);
 
   const routingOptions: { label: string; email: string }[] = [
     ...STRATEGIC_AXES.map((axis) => ({
@@ -26,12 +34,6 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
       email: 'info@araak.org',
     })),
   ];
-
-  useEffect(() => {
-    if (!selectedTarget && routingOptions.length > 0) {
-      onChangeTarget(routingOptions[0].label);
-    }
-  }, [selectedTarget, onChangeTarget, routingOptions]);
 
   const activeOption =
     routingOptions.find((opt) => opt.label === selectedTarget) || routingOptions[0];
@@ -57,7 +59,7 @@ export const SmartRoutingSection: React.FC<SmartRoutingSectionProps> = ({
   )}&body=${encodeURIComponent(builtSummary)}`;
 
   return (
-    <section id="routing" dir="rtl" className="bg-[#08191E] py-20 px-6 text-white border-t border-white/10">
+    <section id="routing" dir="rtl" className="min-h-[82vh] bg-[#08191E] pt-28 pb-20 px-6 text-white">
       <div className="mx-auto max-w-5xl">
         <div className="mb-10">
           <span className="text-sm font-semibold text-[#C99E4C]">بوابة التحويل الفوري</span>

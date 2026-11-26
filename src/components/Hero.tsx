@@ -1,16 +1,16 @@
 ﻿import React from 'react';
-import { ARAAK_IDENTITY, STRATEGIC_AXES } from '../data/araakPortalData';
+import { ARAAK_IDENTITY, PortalSlide, STRATEGIC_AXES } from '../data/araakPortalData';
 
 interface HeroProps {
-  onSelectRouting: (target: string) => void;
+  onNavigateSlide: (slide: PortalSlide, target?: string) => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onSelectRouting }) => {
+export const Hero: React.FC<HeroProps> = ({ onNavigateSlide }) => {
   return (
     <section
       id="top"
       dir="rtl"
-      className="relative min-h-[92vh] w-full overflow-hidden bg-[#06161A] text-white flex items-end"
+      className="relative min-h-screen w-full overflow-hidden bg-[#06161A] text-white flex items-end pt-24"
     >
       <img
         src={ARAAK_IDENTITY.heroImageUrl}
@@ -25,7 +25,7 @@ export const Hero: React.FC<HeroProps> = ({ onSelectRouting }) => {
         }}
       />
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-16 md:py-24">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-14 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
           <div className="lg:col-span-8 space-y-6">
             <div className="inline-flex items-center gap-3 rounded-full border border-[#C99E4C]/40 bg-[#0B1C2C]/80 px-4 py-1.5 text-sm text-[#E8C882] backdrop-blur-md">
@@ -42,17 +42,25 @@ export const Hero: React.FC<HeroProps> = ({ onSelectRouting }) => {
               {ARAAK_IDENTITY.aboutSummary}
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <a
-                href="#pillars"
-                className="rounded-xl bg-[#C99E4C] px-7 py-3.5 text-base font-semibold text-[#06161A] transition hover:bg-[#dcaf59]"
-              >
-                استعراض محاور المجموعة
-              </a>
+            <div className="flex flex-wrap items-center gap-3.5 pt-2">
               <button
                 type="button"
-                onClick={() => onSelectRouting('أكاديمية أراك الإلكترونية (قسم القبول والتسجيل بالأكاديمية)')}
-                className="rounded-xl border border-white/25 bg-white/10 px-7 py-3.5 text-base font-semibold text-white backdrop-blur-md transition hover:border-[#C99E4C] hover:bg-white/15"
+                onClick={() => onNavigateSlide('pillars')}
+                className="rounded-xl bg-[#C99E4C] px-6 py-3.5 text-sm sm:text-base font-semibold text-[#06161A] transition hover:bg-[#dcaf59]"
+              >
+                شريحة التنمية والتدريب والاستشارات
+              </button>
+              <button
+                type="button"
+                onClick={() => onNavigateSlide('entities')}
+                className="rounded-xl border border-white/25 bg-white/10 px-6 py-3.5 text-sm sm:text-base font-semibold text-white backdrop-blur-md transition hover:border-[#C99E4C] hover:bg-white/15"
+              >
+                معرض شركات المجموعة
+              </button>
+              <button
+                type="button"
+                onClick={() => onNavigateSlide('routing', 'تحويل عام — مجموعة أراك للتنمية')}
+                className="rounded-xl border border-[#C99E4C]/40 bg-[#0B1C2C]/70 px-6 py-3.5 text-sm sm:text-base font-semibold text-[#F3D89B] backdrop-blur-md transition hover:bg-[#C99E4C]/20"
               >
                 التحويل إلى الجهة المختصة
               </button>
