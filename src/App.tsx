@@ -398,6 +398,15 @@ export function App() {
                       ))}
                     </div>
                   </div>
+                <div className="w-full" data-component="hero-entity-showcase">
+                  <HeroEntityShowcase
+                    onNavigateScene={(scene) => setActiveScene(scene)}
+                    onDirectContact={(targetName) => {
+                      setRoutingTarget(targetName);
+                      setActiveScene('routing');
+                    }}
+                  />
+                </div>
 
                   <div className="pt-1 flex items-center justify-between text-xs text-slate-300">
                     <span>10 شركات متخصصة + 4 محاور تنموية</span>
@@ -663,6 +672,7 @@ export function App() {
 }
 
 export default App;
+
 
 
 
