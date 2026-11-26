@@ -18,41 +18,72 @@ export interface StrategicAxis {
   summary: string;
   routingLabel: string;
   contactEmail: string;
-  requiresGate?: boolean;
+  requiresGate: boolean;
   branches: PillarBranch[];
 }
 
-export interface AraakEntity {
+export interface AraakCompany {
   id: string;
+  code: string;
   name: string;
-  categoryBadge: 'شركة / وحدة تشغيلية' | 'تمثيل إقليمي' | 'كيان استشاري وتنموي' | 'منصة مجتمعية وتنموية';
-  sector:
-    | 'التنموي والاستشاري'
-    | 'التدريب والأكاديمية'
-    | 'التجارة واللوجستيك'
-    | 'الصناعة والحديد'
-    | 'العقار والمشاريع';
-  role: string;
+  sector: 'التدريب والأكاديمية' | 'التطوير والمشاريع' | 'التجارة والإمداد' | 'الصناعة والحديد' | 'اللوجستيك والتجزئة';
+  headline: string;
   scope: string;
   imageUrl: string;
   routingKey: string;
 }
 
-export type PortalSlide = 'hero' | 'pillars' | 'entities' | 'routing';
+export type SceneId = 'sovereign' | 'developmental' | 'investment' | 'initiatives' | 'routing';
+
+export const SCENE_META: {
+  id: SceneId;
+  shortTitle: string;
+  eyebrow: string;
+  bgImage: string;
+}[] = [
+  {
+    id: 'sovereign',
+    shortTitle: 'الرئيسية',
+    eyebrow: '01 / الهوية السيادية',
+    bgImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2400&q=90',
+  },
+  {
+    id: 'developmental',
+    shortTitle: 'التنمية والاستشارات',
+    eyebrow: '02 / المسار التنموي والمعرفي',
+    bgImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2400&q=90',
+  },
+  {
+    id: 'investment',
+    shortTitle: 'الشركات والاستثمار',
+    eyebrow: '03 / المسار الاستثماري والتشغيلي',
+    bgImage: 'https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=2400&q=90',
+  },
+  {
+    id: 'initiatives',
+    shortTitle: 'المبادرات والإصدارات',
+    eyebrow: '04 / الأثر المجتمعي والإصدارات',
+    bgImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2400&q=90',
+  },
+  {
+    id: 'routing',
+    shortTitle: 'بوابة التحويل',
+    eyebrow: '05 / التوجيه للجهات المختصة',
+    bgImage: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=2400&q=90',
+  },
+];
 
 export const ARAAK_IDENTITY = {
   groupName: 'مجموعة أراك للتنمية',
-  tagline: 'توطين القيم لتمكين التنمية',
-  reachMetric: 'أكثر من 53 دولة',
+  tagline: 'نحو توطين القيم لتمكين التنمية',
+  reachMetric: '+53 دولة',
+  reachLabel: 'انتشار دولي وأثر ممتد',
   values: ['الابتكار', 'الاحترافية', 'التعاون'],
   aboutSummary:
-    'منظومة تنموية ومؤسسية واستثمارية تعمل على توطين القيم وبناء القدرات البشرية والمؤسسية وإدارة المشاريع والكيانات التشغيلية عبر أكثر من 53 دولة.',
-  heroImageUrl:
-    'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2400&q=90',
-  heroImageAlt: 'واجهة معمارية حديثة تعبر عن رسوخ مجموعة أراك للتنمية وتوسعها المؤسسي',
+    'مجموعة تنموية واستثمارية متكاملة تجمع بين بناء القدرات البشرية والمؤسسية، وتطوير المشاريع، وإدارة منظومة شركات تشغيلية وصناعية وتجارية متخصصة.',
 };
 
-export const STRATEGIC_AXES: StrategicAxis[] = [
+export const DEVELOPMENTAL_AXES: StrategicAxis[] = [
   {
     id: 'academy',
     code: '01',
@@ -65,7 +96,7 @@ export const STRATEGIC_AXES: StrategicAxis[] = [
       {
         id: 'diplomas',
         title: 'الدبلومات التدريبية',
-        subtitle: 'مسارات تأهيل مهني وتخصصي متكامل',
+        subtitle: 'مسارات تأهيل مهني وتخصصي',
         items: [
           { title: 'دبلومات إدارية', description: 'إعداد القيادات الإدارية وتطوير الكفاءات التشغيلية.', targetRouting: 'الدبلومات التدريبية — دبلومات إدارية' },
           { title: 'دبلومات تعليمية', description: 'تأهيل الكوادر التربوية والمنهجية التعليمية.', targetRouting: 'الدبلومات التدريبية — دبلومات تعليمية' },
@@ -75,7 +106,7 @@ export const STRATEGIC_AXES: StrategicAxis[] = [
       {
         id: 'courses',
         title: 'الدورات التدريبية',
-        subtitle: 'حقائب تطبيقية في خمسة قطاعات حيوية',
+        subtitle: 'حقائب تطبيقية في خمسة قطاعات',
         items: [
           { title: 'الإدارة والأعمال', description: 'العمليات، القيادة، وإدارة الأداء المؤسسي.', targetRouting: 'الدورات التدريبية — الإدارة والأعمال' },
           { title: 'التسويق والمبيعات', description: 'النمو التجاري، إدارة العملاء، وبناء العلامات.', targetRouting: 'الدورات التدريبية — التسويق والمبيعات' },
@@ -87,7 +118,7 @@ export const STRATEGIC_AXES: StrategicAxis[] = [
       {
         id: 'dev-programs',
         title: 'برامج أراك التنموية',
-        subtitle: 'مسارات مجتمعية وتأهيلية متنوعة',
+        subtitle: 'مسارات تأهيلية ومفتوحة',
         items: [
           { title: 'برامج التدريب', description: 'برامج تطبيقية لرفع الجاهزية المهنية.', targetRouting: 'برامج أراك التنموية — برامج التدريب' },
           { title: 'برامج التعليم', description: 'مبادرات تعليمية لتوسيع أثر المعرفة.', targetRouting: 'برامج أراك التنموية — برامج التعليم' },
@@ -99,7 +130,7 @@ export const STRATEGIC_AXES: StrategicAxis[] = [
   {
     id: 'services',
     code: '02',
-    title: 'الخدمات الرئيسية',
+    title: 'الخدمات الرئيسية والاستشارات',
     summary: 'الاستشارات المتخصصة، الاعتمادات المهنية والأكاديمية، وحلول التطوير المؤسسي.',
     routingLabel: 'مكتب الخدمات الاستشارية والاعتمادات',
     contactEmail: 'services@araak.org',
@@ -118,7 +149,7 @@ export const STRATEGIC_AXES: StrategicAxis[] = [
       {
         id: 'accreditations',
         title: 'الاعتمادات',
-        subtitle: 'أطر اعتماد ومعايير مهنية وأكاديمية',
+        subtitle: 'معايير مهنية وأكاديمية معتمدة',
         items: [
           { title: 'الاعتماد الدولي للمدربين', description: 'تقييم واعتماد المدربين وفق معايير مهنية معتمدة.', targetRouting: 'الاعتمادات — الاعتماد الدولي للمدربين' },
           { title: 'اعتماد البرامج الأكاديمية', description: 'مراجعة واعتماد المناهج والبرامج التدريبية والأكاديمية.', targetRouting: 'الاعتمادات — اعتماد البرامج الأكاديمية' },
@@ -135,6 +166,9 @@ export const STRATEGIC_AXES: StrategicAxis[] = [
       },
     ],
   },
+];
+
+export const INITIATIVES_AND_PUBLICATIONS: StrategicAxis[] = [
   {
     id: 'initiatives',
     code: '03',
@@ -198,106 +232,105 @@ export const STRATEGIC_AXES: StrategicAxis[] = [
   },
 ];
 
-export const ARAAK_ENTITIES: AraakEntity[] = [
+export const ARAAK_COMPANIES: AraakCompany[] = [
   {
     id: 'araak-academy',
+    code: '01',
     name: 'أكاديمية أراك',
-    categoryBadge: 'شركة / وحدة تشغيلية',
     sector: 'التدريب والأكاديمية',
-    role: 'الذراع التدريبي والأكاديمي',
-    scope: 'الدبلومات والدورات والبرامج التدريبية الإلكترونية',
-    imageUrl: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=85',
-    routingKey: 'كيان أكاديمية أراك',
+    headline: 'الذراع التدريبي والأكاديمي للمجموعة',
+    scope: 'تطوير وتنفيذ الدبلومات التدريبية، الحقائب التخصصية، وبرامج التأهيل القيادي والمهني.',
+    imageUrl: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1400&q=85',
+    routingKey: 'أكاديمية أراك — الذراع التدريبي والأكاديمي',
   },
   {
     id: 'araak-national',
+    code: '02',
     name: 'أراك الوطنية',
-    categoryBadge: 'شركة / وحدة تشغيلية',
-    sector: 'العقار والمشاريع',
-    role: 'التطوير والمشاريع الوطنية',
-    scope: 'المشاريع التنموية والعمرانية والتشغيلية',
-    imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=85',
-    routingKey: 'كيان أراك الوطنية',
-  },
-  {
-    id: 'araak-commercial',
-    name: 'أراك التجارية',
-    categoryBadge: 'شركة / وحدة تشغيلية',
-    sector: 'التجارة واللوجستيك',
-    role: 'الأنشطة التجارية والتوريد',
-    scope: 'التجارة العامة وتوفير المستلزمات والحلول التجارية',
-    imageUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=85',
-    routingKey: 'كيان أراك التجارية',
+    sector: 'التطوير والمشاريع',
+    headline: 'التطوير العقاري والمشاريع الوطنية',
+    scope: 'قيادة المشاريع العمرانية والتطويرية وبناء الشراكات الاستثمارية ذات الأثر المستدام.',
+    imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1400&q=85',
+    routingKey: 'أراك الوطنية — التطوير والمشاريع الوطنية',
   },
   {
     id: 'araak-projects',
+    code: '03',
     name: 'أراك المشاريع',
-    categoryBadge: 'شركة / وحدة تشغيلية',
-    sector: 'العقار والمشاريع',
-    role: 'إدارة وتنفيذ المشاريع',
-    scope: 'تخطيط وتنفيذ وإدارة المشاريع الكبرى',
-    imageUrl: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=85',
-    routingKey: 'كيان أراك المشاريع',
+    sector: 'التطوير والمشاريع',
+    headline: 'إدارة وتنفيذ المشاريع الهندسية والإنشائية',
+    scope: 'التخطيط الهندسي، إدارة المقاولات، وتنفيذ المشاريع وفق أعلى معايير الجودة والانضباط.',
+    imageUrl: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=85',
+    routingKey: 'أراك المشاريع — إدارة وتنفيذ المشاريع',
+  },
+  {
+    id: 'araak-commercial',
+    code: '04',
+    name: 'أراك التجارية',
+    sector: 'التجارة والإمداد',
+    headline: 'الأنشطة التجارية والتوريد المؤسسي',
+    scope: 'إدارة العقود التجارية وتوفير المستلزمات والحلول التجارية للقطاعات المختلفة.',
+    imageUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1400&q=85',
+    routingKey: 'أراك التجارية — الأنشطة التجارية والتوريد',
   },
   {
     id: 'araak-food',
+    code: '05',
     name: 'أراك الغذائية',
-    categoryBadge: 'شركة / وحدة تشغيلية',
-    sector: 'التجارة واللوجستيك',
-    role: 'القطاع الغذائي والإمداد',
-    scope: 'المنتجات والخدمات الغذائية وسلاسل الإمداد',
-    imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=85',
-    routingKey: 'كيان أراك الغذائية',
+    sector: 'التجارة والإمداد',
+    headline: 'القطاع الغذائي وسلاسل الإمداد',
+    scope: 'تطوير المنتجات الغذائية وإدارة سلاسل الإمداد والتوزيع الغذائي.',
+    imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1400&q=85',
+    routingKey: 'أراك الغذائية — القطاع الغذائي والإمداد',
   },
   {
     id: 'araak-industrial',
+    code: '06',
     name: 'أراك الصناعية',
-    categoryBadge: 'شركة / وحدة تشغيلية',
     sector: 'الصناعة والحديد',
-    role: 'التصنيع والإنتاج الصناعي',
-    scope: 'العمليات الصناعية والمنتجات التصنيعية',
-    imageUrl: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=85',
-    routingKey: 'كيان أراك الصناعية',
+    headline: 'التصنيع والإنتاج الصناعي المتكامل',
+    scope: 'تطوير خطوط الإنتاج الصناعي ودعم المحتوى المحلي في الصناعات التحويلية.',
+    imageUrl: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1400&q=85',
+    routingKey: 'أراك الصناعية — التصنيع والإنتاج الصناعي',
   },
   {
     id: 'araak-iron',
+    code: '07',
     name: 'أراك الحديد',
-    categoryBadge: 'شركة / وحدة تشغيلية',
     sector: 'الصناعة والحديد',
-    role: 'الحديد والمواد الإنشائية',
-    scope: 'إمدادات وتطبيقات الحديد والصلب الإنشائي',
-    imageUrl: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=85',
-    routingKey: 'كيان أراك الحديد',
+    headline: 'الحديد والصلب والمواد الإنشائية',
+    scope: 'توريد وتجهيز حلول الحديد الإنشائي والصناعي للمشاريع الكبرى.',
+    imageUrl: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1400&q=85',
+    routingKey: 'أراك الحديد — الحديد والمواد الإنشائية',
   },
   {
     id: 'araak-stores',
+    code: '08',
     name: 'أراك ستورز',
-    categoryBadge: 'شركة / وحدة تشغيلية',
-    sector: 'التجارة واللوجستيك',
-    role: 'التجارة الإلكترونية والمتاجر',
-    scope: 'منصات البيع والمتاجر الرقمية والتجارية',
-    imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=85',
-    routingKey: 'كيان أراك ستورز',
+    sector: 'اللوجستيك والتجزئة',
+    headline: 'التجارة الإلكترونية والمنصات الرقمية',
+    scope: 'بناء وتشغيل المتاجر الرقمية وتجربة التسوق المتكاملة للعملاء.',
+    imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1400&q=85',
+    routingKey: 'أراك ستورز — التجارة الإلكترونية والمتاجر',
   },
   {
     id: 'araak-logistics',
+    code: '09',
     name: 'أراك لوجستيك',
-    categoryBadge: 'شركة / وحدة تشغيلية',
-    sector: 'التجارة واللوجستيك',
-    role: 'الخدمات اللوجستية والنقل',
-    scope: 'التخزين، التوزيع، والربط اللوجستي',
-    imageUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=85',
-    routingKey: 'كيان أراك لوجستيك',
+    sector: 'اللوجستيك والتجزئة',
+    headline: 'الخدمات اللوجستية والنقل والتخزين',
+    scope: 'حلول النقل، المستودعات، وإدارة حركة البضائع وسلاسل التوريد.',
+    imageUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=85',
+    routingKey: 'أراك لوجستيك — الخدمات اللوجستية والنقل',
   },
   {
     id: 'araak-home',
+    code: '10',
     name: 'أراك هوم',
-    categoryBadge: 'شركة / وحدة تشغيلية',
-    sector: 'العقار والمشاريع',
-    role: 'الحلول السكنية والتجهيز',
-    scope: 'تجهيزات المنازل والحلول السكنية المتكاملة',
-    imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85',
-    routingKey: 'كيان أراك هوم',
+    sector: 'التطوير والمشاريع',
+    headline: 'الحلول السكنية والتأثيث المتكامل',
+    scope: 'تجهيز وتأثيث الوحدات السكنية وتقديم حلول المعيشة العصرية.',
+    imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85',
+    routingKey: 'أراك هوم — الحلول السكنية والتأثيث',
   },
 ];
-
