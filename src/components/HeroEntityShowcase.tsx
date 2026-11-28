@@ -25,7 +25,7 @@ const HERO_ENTITY_SLIDES: HeroEntitySlide[] = [
       'تطوير العنصر البشري وتعزيز قدراته في شتى مجالات الحياة عبر فرق مؤهلة وبرامج مبتكرة علمياً وعملياً لبناء مجتمع حضاري.',
     highlights: ['الاستشارات الاستراتيجية', 'تطوير الأعمال', 'الحلول التعليمية'],
     imageUrl:
-      'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=85',
+      'https://www.araak.org/wp-content/uploads/2024/10/doctor-1080x675.png',
     targetScene: 'developmental',
     routingTarget: 'أراك التنمية',
   },
@@ -39,7 +39,7 @@ const HERO_ENTITY_SLIDES: HeroEntitySlide[] = [
       'توريد مواد بناء عالية الجودة وتنفيذ خدمات التعاقد من الباطن المتخصصة المهنية للمقاولين وتجار الجملة والتجزئة وأصحاب المشاريع.',
     highlights: ['مواد بناء معتمدة', 'تعاقدات متخصصة', 'سلاسل إمداد للمشاريع'],
     imageUrl:
-      'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1400&q=85',
+      'https://www.araak.org/wp-content/uploads/2023/08/%D8%A7%D8%B1%D8%A7%D9%83_%D8%A7%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D9%8A%D8%A9-removebg-preview-2.png',
     targetScene: 'investment',
     routingTarget: 'أراك التجارية',
   },
@@ -53,7 +53,7 @@ const HERO_ENTITY_SLIDES: HeroEntitySlide[] = [
       'متجر سعودي غير تقليدي يضم أحدث المنتجات المنزلية ومستلزمات الديكور بتجربة اقتناء وتجهيز متكاملة للمنازل والمساحات الحديثة.',
     highlights: ['تصاميم منزلية حديثة', 'مستلزمات الديكور', 'تجربة تسوق متكاملة'],
     imageUrl:
-      'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1400&q=85',
+      'https://www.araak.org/wp-content/uploads/2023/09/STORES-LOGO.png',
     targetScene: 'investment',
     routingTarget: 'أراك ستورز',
   },
@@ -67,7 +67,7 @@ const HERO_ENTITY_SLIDES: HeroEntitySlide[] = [
       'تصنيع الصفائح عالية الجودة من الصلب المجلفن ولفائف الصلب المدرفلة على الساخن والبارد، وقواطع الحوائط الجافة وإكسسوارات الأسقف الفولاذية.',
     highlights: ['صلب مجلفن ومدرفل', 'قواطع حوائط جافة', 'إكسسوارات أسقف فولاذية'],
     imageUrl:
-      'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1400&q=85',
+      'https://www.araak.org/wp-content/uploads/2023/09/Layer-4.png',
     targetScene: 'investment',
     routingTarget: 'أراك الحديد',
   },
@@ -81,7 +81,7 @@ const HERO_ENTITY_SLIDES: HeroEntitySlide[] = [
       'منصة إلكترونية متكاملة تقدم خدمات وبرامج أراك التدريبية والتعليمية بطريقة تقنية حديثة وسهلة الاستخدام للأفراد والمؤسسات.',
     highlights: ['دبلومات مهنية', 'دورات تخصصية', 'برامج تنموية معتمدة'],
     imageUrl:
-      'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1400&q=85',
+      'https://www.araak.org/wp-content/uploads/2023/09/academy-logo.png',
     targetScene: 'developmental',
     routingTarget: 'أكاديمية أراك',
   },
@@ -265,3 +265,4 @@ export const HeroEntityShowcase: React.FC<HeroEntityShowcaseProps> = ({
     </div>
   );
 };
+

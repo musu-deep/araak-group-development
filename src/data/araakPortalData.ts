@@ -126,7 +126,7 @@ export const DEVELOPMENTAL_AXES: StrategicAxis[] = [
     routingLabel: 'قسم القبول والتسجيل بالأكاديمية',
     contactEmail: 'academy@araak.org',
     requiresGate: true,
-    imageUrl: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=90',
+    imageUrl: 'https://www.araak.org/wp-content/uploads/2024/05/a7efb74e-a9f5-4c40-8c71-676518eadff4-1080x675.jpg',
     imageAlt: 'بيئة التدريب والتأهيل في أكاديمية أراك الإلكترونية',
     branches: [
       {
@@ -171,7 +171,7 @@ export const DEVELOPMENTAL_AXES: StrategicAxis[] = [
     routingLabel: 'مكتب الخدمات الاستشارية والاعتمادات',
     contactEmail: 'services@araak.org',
     requiresGate: true,
-    imageUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=90',
+    imageUrl: 'https://www.araak.org/wp-content/uploads/2019/02/%D9%88%D8%B1%D8%B4%D8%A9-%D8%B9%D9%85%D9%84-%D8%A7%D9%84%D8%A8%D9%86%D8%A7%D8%A1-%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D8%B1%D8%A7%D8%AA%D9%8A%D8%AC%D9%8A-%D8%AC%D8%AF%D9%87-%D9%86%D9%88%D9%81%D9%85%D8%A8.jpg',
     imageAlt: 'الاستشارات الاستراتيجية وبناء أنظمة الجودة والتطوير المؤسسي',
     branches: [
       {
@@ -215,7 +215,7 @@ export const INITIATIVES_AND_PUBLICATIONS: StrategicAxis[] = [
     routingLabel: 'إدارة المشاريع والمبادرات التنموية',
     contactEmail: 'initiatives@araak.org',
     requiresGate: true,
-    imageUrl: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=90',
+    imageUrl: 'https://www.araak.org/wp-content/uploads/2024/05/bd452eb6-defb-4d5a-8e58-5e5776b68420-1080x675.jpg',
     imageAlt: 'المشاريع القيادية والتأهيلية والمبادرات المجتمعية في مجموعة أراك',
     branches: [
       {
@@ -257,7 +257,7 @@ export const INITIATIVES_AND_PUBLICATIONS: StrategicAxis[] = [
     routingLabel: 'مركز الإصدارات والدراسات',
     contactEmail: 'publications@araak.org',
     requiresGate: false,
-    imageUrl: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1600&q=90',
+    imageUrl: 'https://www.araak.org/wp-content/uploads/2024/10/doctor-1080x675.png',
     imageAlt: 'الإصدارات التنموية والنشرات الدورية والمقالات العلمية',
     branches: [
       {
@@ -282,7 +282,7 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     sector: 'التدريب والأكاديمية',
     headline: 'الذراع التدريبي والأكاديمي للمجموعة',
     scope: 'منصة إلكترونية تقدم خدمات أراك بطريقة تقنية وسهلة الاستخدام للدبلومات والدورات والبرامج التدريبية.',
-    imageUrl: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1400&q=85',
+    imageUrl: 'https://www.araak.org/wp-content/uploads/2023/09/academy-logo.png',
     routingKey: 'أكاديمية أراك',
   },
   {
@@ -292,7 +292,7 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     sector: 'التطوير والمشاريع',
     headline: 'التطوير العقاري والمشاريع الوطنية',
     scope: 'قيادة المشاريع العمرانية والتطويرية وبناء الشراكات الاستثمارية ذات الأثر المستدام.',
-    imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1400&q=85',
+    imageUrl: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&w=1400&q=85',
     routingKey: 'أراك الوطنية',
   },
   {
@@ -302,7 +302,7 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     sector: 'التطوير والمشاريع',
     headline: 'إدارة وتنفيذ المشاريع الهندسية والإنشائية',
     scope: 'التخطيط الهندسي، إدارة المقاولات، وتنفيذ المشاريع وفق أعلى معايير الجودة والانضباط.',
-    imageUrl: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=85',
+    imageUrl: 'https://www.araak.org/wp-content/uploads/2019/02/%D9%88%D8%B1%D8%B4%D8%A9-%D8%B9%D9%85%D9%84-%D8%A7%D9%84%D8%A8%D9%86%D8%A7%D8%A1-%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D8%B1%D8%A7%D8%AA%D9%8A%D8%AC%D9%8A-%D8%AC%D8%AF%D9%87-%D9%86%D9%88%D9%81%D9%85%D8%A8.jpg',
     routingKey: 'أراك المشاريع',
   },
   {
@@ -312,7 +312,7 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     sector: 'التجارة والإمداد',
     headline: 'توريد مواد البناء والتعاقد من الباطن المتخصص',
     scope: 'توريد مواد بناء عالية الجودة وتنفيذ خدمات التعاقد من الباطن المتخصصة للمقاولين وتجار الجملة والتجزئة وأصحاب المشاريع.',
-    imageUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1400&q=85',
+    imageUrl: 'https://www.araak.org/wp-content/uploads/2023/08/%D8%A7%D8%B1%D8%A7%D9%83_%D8%A7%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D9%8A%D8%A9-removebg-preview-2.png',
     routingKey: 'أراك التجارية',
   },
   {
@@ -322,7 +322,7 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     sector: 'التدريب والأكاديمية',
     headline: 'الاستشارات وتطوير الأعمال والتدريب والحلول التعليمية',
     scope: 'تنمية العنصر البشري وتعزيز قدراته عبر فرق مؤهلة وبرامج مبتكرة علمياً وعملياً لبناء مجتمع حضاري، مع الاستشارات وتطوير الأعمال والحلول التعليمية.',
-    imageUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=85',
+    imageUrl: 'https://www.araak.org/wp-content/uploads/2024/10/doctor-1080x675.png',
     routingKey: 'أراك التنمية',
   },
   {
@@ -332,7 +332,7 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     sector: 'الصناعة والحديد',
     headline: 'التصنيع والإنتاج الصناعي المتكامل',
     scope: 'تطوير خطوط الإنتاج الصناعي ودعم المحتوى المحلي في الصناعات التحويلية.',
-    imageUrl: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1400&q=85',
+    imageUrl: 'https://www.araak.org/wp-content/uploads/2023/09/Layer-11.png',
     routingKey: 'أراك الصناعية',
   },
   {
@@ -342,7 +342,7 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     sector: 'الصناعة والحديد',
     headline: 'الصلب المجلفن والمدرفل وقواطع الحوائط والأسقف الفولاذية',
     scope: 'تصنيع الصفائح عالية الجودة من الصلب المجلفن ولفائف الصلب المدرفلة على الساخن والبارد، وقواطع الحوائط الجافة وإكسسوارات الأسقف الفولاذية.',
-    imageUrl: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1400&q=85',
+    imageUrl: 'https://www.araak.org/wp-content/uploads/2023/09/Layer-4.png',
     routingKey: 'أراك الحديد',
   },
   {
@@ -352,7 +352,7 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     sector: 'اللوجستيك والتجزئة',
     headline: 'المنتجات المنزلية ومستلزمات الديكور',
     scope: 'متجر حديث يضم أحدث المنتجات المنزلية ومستلزمات الديكور بتجربة تسوق متكاملة.',
-    imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1400&q=85',
+    imageUrl: 'https://www.araak.org/wp-content/uploads/2023/09/STORES-LOGO.png',
     routingKey: 'أراك ستورز',
   },
   {
@@ -362,7 +362,7 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     sector: 'اللوجستيك والتجزئة',
     headline: 'الخدمات اللوجستية والنقل والتخزين',
     scope: 'حلول النقل، المستودعات، وإدارة حركة البضائع وسلاسل التوريد.',
-    imageUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=85',
+    imageUrl: 'https://www.araak.org/wp-content/uploads/2024/05/bd452eb6-defb-4d5a-8e58-5e5776b68420-1080x675.jpg',
     routingKey: 'أراك لوجستيك',
   },
   {
@@ -372,7 +372,8 @@ export const ARAAK_COMPANIES: AraakCompany[] = [
     sector: 'التطوير والمشاريع',
     headline: 'الحلول السكنية والتأثيث المتكامل',
     scope: 'تجهيز وتأثيث الوحدات السكنية وتقديم حلول المعيشة العصرية.',
-    imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85',
+    imageUrl: 'https://www.araak.org/wp-content/uploads/2023/09/decore.png',
     routingKey: 'أراك هوم',
   },
 ];
+
